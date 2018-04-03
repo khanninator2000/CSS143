@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class BinSearchDriver {
 
-	public final static String FILE_AND_PATH = "c:\\longwords.txt";
+	public final static String FILE_AND_PATH = "longwords.txt";
 	/* 
 	 * TODO: Be sure to change the FILE_AND_PATH to point to your local 
 	 * copy of longwords.txt or a FileNotFoundException will result
@@ -26,25 +26,27 @@ public class BinSearchDriver {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner input = new Scanner(new File(FILE_AND_PATH));
 		int wordCount = 0;
-		ArrayList<String> theWords = new ArrayList<String>();
+		ArrayList<String> words = new ArrayList<>();
 		
 		//read in words, count them
 		while(input.hasNext())  {
-			theWords.add( input.next() );
+			words.add(input.next());
 			wordCount++;
 		}
 
 		//make a standard array from an ArrayList
-		String[] wordsToSearch = new String[theWords.size()];
-		theWords.toArray(wordsToSearch);
+		String[] wordsToSearch = new String[words.size()];
+		words.toArray(wordsToSearch);
 		
 		//start with the linear searches
+		System.out.println("Linear Search");
 		tryLinearSearch(wordsToSearch, "DISCIPLINES");
 		tryLinearSearch(wordsToSearch, "TRANSURANIUM");
 		tryLinearSearch(wordsToSearch, "HEURISTICALLY");
 		tryLinearSearch(wordsToSearch, "FOO");
 		
-		//and compare these results to the binary searches
+//		and compare these results to the binary searches
+		System.out.println("\nBinary Search");
 		tryBinarySearch(wordsToSearch, "DISCIPLINES");
 		tryBinarySearch(wordsToSearch, "TRANSURANIUM");
 		tryBinarySearch(wordsToSearch, "HEURISTICALLY");
@@ -63,8 +65,11 @@ public class BinSearchDriver {
 		SearchAlgorithm bs = new BinarySearch();
 		
 		try {
-			System.out.print( target + " found at index: " + bs.search(wordsToSearch,target));
+            System.out.print( target + " found at index: " + ((BinarySearch)bs).recSearchNO(wordsToSearch, target));
 			System.out.println( " taking " + bs.getCount() + " comparisons.");
+			bs.resetCount();
+            System.out.print( target + " found at index: " + bs.search(wordsToSearch,target));
+            System.out.println( " taking " + bs.getCount() + " comparisons.");
 		} 
 		catch( ItemNotFoundException e ) {
 			System.out.println( target + ":" + e.getMessage());
@@ -79,11 +84,12 @@ public class BinSearchDriver {
 	 */
 	private static void tryLinearSearch(String[] wordsToSearch, String target) {
 		//Todo: Build a LinearSearch class that inherits from SearchAlgorithm, and put it in the same directory as this class to successfully compile
-		SearchAlgorithm bs = new LinearSearch();
+		SearchAlgorithm ls = new LinearSearch();
 		
 		try {
-			System.out.print( target + " found at index: " + bs.search(wordsToSearch,target));
-			System.out.println( " taking " + bs.getCount() + " comparisons.");
+			System.out.print( target + " found at index: " + ls.search(wordsToSearch,target));
+			//System.out.print( target + " found at index: " + ls.recSearch(wordsToSearch,target));
+			System.out.println( " taking " + ls.getCount() + " comparisons.");
 			
 		} 
 		catch( ItemNotFoundException e ) {
