@@ -1,4 +1,7 @@
-
+/**
+ * A date class with the Dates in between 1/1/2014 and 31/12/2024. This class
+ * assumes that all months have 31 days and there are no leap years.
+ */
 public class Date {
     private int year;
     private int month;
@@ -53,12 +56,24 @@ public class Date {
         }
     }
 
+    /**
+     * Checks if a Date is after this, up to the precision of the day.
+     *
+     * @param other the Other object to compare to
+     * @return Returns true if other is after this.
+     */
     public boolean isAfter(Date other) {
         return this.year > other.year || this.year == other.year &&
                 (this.month > other.month || this.month == other.month &&
                         this.day > other.day);
     }
 
+    /**
+     * Returns true if 2 objects are equal.
+     *
+     * @param obj Object (Date) to compare to.
+     * @return true if the two Dates are equal.
+     */
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Date &&

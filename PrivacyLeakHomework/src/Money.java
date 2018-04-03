@@ -1,6 +1,13 @@
-
+/**
+ * Class to hold Money in USD.
+ */
 public class Money {
     private int dollars;
+
+    /**
+     * An integer between 0 and 99. If this value exceeds 99, the (integer) quotient is added to dollars and the
+     * modulo to 100 is saved.
+     */
     private int cents;
 
     public Money() {

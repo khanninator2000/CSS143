@@ -25,14 +25,27 @@ public class Bill {
         return paidDate != null;
     }
 
+    /**
+     * Method that sets the paid date only if the bill hasn't been paid or the attempted date is after the dueDate.
+     *
+     * @param paidDate The date the bill is being (or was) paid.
+     * @return True if the paid_date value is changed. False otherwise.
+     *         This method returns true if the bill has not been paid and if the paidDate is before or on the dueDate.
+     */
     public boolean setPaid(Date paidDate) {
-        if (paidDate != null && paidDate.isAfter(dueDate)) {
+        if (this.paidDate != null && paidDate != null && paidDate.isAfter(dueDate)) {
             return false;
         }
         this.paidDate = paidDate;
         return true;
     }
 
+    /**
+     * Sets the dueDate of the bill only if the bill has not been paid.
+     *
+     * @param dueDate The new dueDate
+     * @return True if the dueDate is changed. False otherwise.
+     */
     public boolean setDueDate(Date dueDate) {
         if (isPaid()) {
             return false;
@@ -41,6 +54,12 @@ public class Bill {
         return true;
     }
 
+    /**
+     * (Re)Sets the bill's amount to the desired amount.
+     *
+     * @param amount The new value.
+     * @return True if the change is successful.
+     */
     boolean setAmount(Money amount) {
         if (isPaid()) {
             return false;
@@ -58,6 +77,13 @@ public class Bill {
         return amount + " " + dueDate + " " + originator + " " + (isPaid() ? "Paid on " + paidDate : "Not paid");
     }
 
+    /**
+     * Checks if two Bills are equal. Two bills are defined equal if the originator, dueDate, paidDate, and amount are
+     * equal.
+     *
+     * @param obj The Object (Bill) to compare to.
+     * @return True if the two objects are equal.
+     */
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Bill &&
