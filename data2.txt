@@ -1,0 +1,2 @@
+Enter your number here: 10
+Divisors are 10 5 2 1 

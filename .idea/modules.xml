@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CSS143Homework.iml" filepath="$PROJECT_DIR$/CSS143Homework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab1/Lab1.iml" filepath="$PROJECT_DIR$/Lab1/Lab1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab1b/Lab1b.iml" filepath="$PROJECT_DIR$/Lab1b/Lab1b.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lab2/Lab2.iml" filepath="$PROJECT_DIR$/Lab2/Lab2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LinkedList/LinkedList.iml" filepath="$PROJECT_DIR$/LinkedList/LinkedList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PrivacyLeakHomework/PrivacyLeakHomework.iml" filepath="$PROJECT_DIR$/PrivacyLeakHomework/PrivacyLeakHomework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Recursion/Recursion.iml" filepath="$PROJECT_DIR$/Recursion/Recursion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShapeInheritance/ShapeInheritance.iml" filepath="$PROJECT_DIR$/ShapeInheritance/ShapeInheritance.iml" />
+    </modules>
+  </component>
+</project>
