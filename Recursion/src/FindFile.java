@@ -1,11 +1,13 @@
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Arrays;
 
 public class FindFile {
     private int max_files;
     private int count;
-    String[] files;
+    private String[] files;
 
     public FindFile(int max_files) {
         this.max_files = max_files;
@@ -20,8 +22,12 @@ public class FindFile {
         }
 
         String[] file_list = current_file.list();
+        if (file_list == null) {
+            return;
+        }
         for (String file : file_list) {
             File next = new File(current_file + "/" + file);
+            System.out.println(next.getAbsolutePath());
             if (next.isDirectory()) {
                 directory_search(target, next.getAbsolutePath());
             }
@@ -44,10 +50,11 @@ public class FindFile {
         return files;
     }
 
-    public static void main(String[] $) {
-        FindFile f = new FindFile(3);
+    public static void main(String[] $) throws IOException {
+        System.setOut(new PrintStream(new FileOutputStream("files.txt"), true));
+        FindFile f = new FindFile(Integer.MAX_VALUE >> 6);
         try {
-            f.directory_search("robots2.txt", "/Users/krishkalai/Desktop/");
+            f.directory_search("robots2.txt", "/");
             System.out.println(Arrays.toString(f.getFiles()));
         }catch (ArrayIndexOutOfBoundsException x) {
             System.err.println("Oh... this happened");

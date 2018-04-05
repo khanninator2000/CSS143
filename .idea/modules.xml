@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ArrayBasedStructres/ArrayBasedStructres.iml" filepath="$PROJECT_DIR$/ArrayBasedStructres/ArrayBasedStructres.iml" />
       <module fileurl="file://$PROJECT_DIR$/CSS143Homework.iml" filepath="$PROJECT_DIR$/CSS143Homework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ClassesAndInterfaces/ClassesAndInterfaces.iml" filepath="$PROJECT_DIR$/ClassesAndInterfaces/ClassesAndInterfaces.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FractionV1/FractionV1.iml" filepath="$PROJECT_DIR$/FractionV1/FractionV1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FractionsV2/FractionsV2.iml" filepath="$PROJECT_DIR$/FractionsV2/FractionsV2.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lab1/Lab1.iml" filepath="$PROJECT_DIR$/Lab1/Lab1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lab1b/Lab1b.iml" filepath="$PROJECT_DIR$/Lab1b/Lab1b.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lab2/Lab2.iml" filepath="$PROJECT_DIR$/Lab2/Lab2.iml" />

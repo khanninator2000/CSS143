@@ -4,9 +4,8 @@ import java.util.Scanner;
 
 public class Reader {
     public static void main(String[] $) throws FileNotFoundException {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Which file to view? ");
-        sc = new Scanner(new FileInputStream(sc.nextLine()));
+        Scanner sc = new Scanner(new FileInputStream(new Scanner(System.in).nextLine()));
+
         while (sc.hasNextLine()) {
             System.out.println(sc.nextLine());
         }

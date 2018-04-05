@@ -1,4 +1,4 @@
-/**
+/*
  * Linear and Binary Search Homework 5 Driver
  * CSS 162
  * 
