@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 /**
- * Class to hold Money in USD.
+ * Class to hold money, counted as USD currency.
  */
 public class Money implements Comparable, Cloneable, Serializable {
     private int dollars;
@@ -56,16 +56,29 @@ public class Money implements Comparable, Cloneable, Serializable {
         add(money.dollars, money.cents);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean equals(Object oth) {
-        return oth instanceof Money && this.dollars == ((Money) oth).dollars && this.cents == ((Money) oth).cents;
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Money)) {
+            return false;
+        }
+        Money money = (Money)obj;
+        return this.dollars == money.dollars && this.cents == money.cents;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "$" + String.format("%.2f", getMoney());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int compareTo(Object o) {
         if (o instanceof Money) {
@@ -74,10 +87,19 @@ public class Money implements Comparable, Cloneable, Serializable {
         throw new ClassCastException(o.getClass() + "cannot be casted to" + getClass());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected Money clone() throws CloneNotSupportedException {
-        Money money = (Money)super.clone();
-        money.setMoney(this.dollars, this.cents);
-        return money;
+    protected final Money clone() {
+        try {
+            Money money = (Money) super.clone();
+            money.setMoney(this.dollars, this.cents);
+            return money;
+        } catch (CloneNotSupportedException x) {
+            return null;
+        }
     }
 }
+
+

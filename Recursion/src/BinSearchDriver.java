@@ -16,11 +16,7 @@ import java.util.Scanner;
 public class BinSearchDriver {
 
 	public final static String FILE_AND_PATH = "longwords.txt";
-	/* 
-	 * TODO: Be sure to change the FILE_AND_PATH to point to your local 
-	 * copy of longwords.txt or a FileNotFoundException will result
-	 */	
-	
+
 	
 	//Note how we deal with Java's Catch-or-Declare rule here by declaring the exceptions we might throw
 	public static void main(String[] args) throws FileNotFoundException {

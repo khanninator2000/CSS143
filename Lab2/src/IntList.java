@@ -5,8 +5,8 @@ import java.io.PrintWriter;
 /** for Class Design - IntList  */
 
 public class IntList {   //or IntList, caps at 100 elements with no bullet-proofing or bounds checks, etc.
- 	private int numElements = 0;
  	private int[] data = new int[100];
+	private int numElements = 0;
 
  	public void add(int letter) {
  		data[numElements++] = letter;

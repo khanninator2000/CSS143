@@ -10,6 +10,7 @@ public class FindFile {
     private String[] files;
 
     public FindFile(int max_files) {
+
         this.max_files = max_files;
         count = 0;
         files = new String[max_files];
@@ -52,12 +53,12 @@ public class FindFile {
 
     public static void main(String[] $) throws IOException {
         System.setOut(new PrintStream(new FileOutputStream("files.txt"), true));
-        FindFile f = new FindFile(Integer.MAX_VALUE >> 6);
+        FindFile f = new FindFile(10000);
         try {
-            f.directory_search("robots2.txt", "/");
+            f.directory_search("iamacat.txt.jfndsjkfnsdkjfnkj", "/");
             System.out.println(Arrays.toString(f.getFiles()));
-        }catch (ArrayIndexOutOfBoundsException x) {
-            System.err.println("Oh... this happened");
+        } finally {
+            System.out.println("");
         }
     }
 }

@@ -1,6 +1,13 @@
-import javafx.scene.effect.Light;
 
 public class Point2D {
+    /*
+     * 1. What effect does “private”have for methods trying to use x ory inside this classfile?
+     *    Restricts the scope of this variable to this file.
+     * 2. What about methods trying to use x and y outside this class?
+     *    Leads to a compiler error of being out of scope.
+     * 3. Can you use x and y without an associated object (or instance)?
+     *    No. The variables are not static.
+     */
     private int x;
     private int y;
 
@@ -43,9 +50,8 @@ public class Point2D {
         return "(" + this.x + ", " + this.y + ")";
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return obj instanceof Point2D && this.x == ((Point2D) obj).x && this.y == ((Point2D) obj).y;
+    public boolean equals(Point2D obj) {
+        return obj != null && this.x == obj.x && this.y == obj.y;
     }
 
     public static void main(String[] $) {

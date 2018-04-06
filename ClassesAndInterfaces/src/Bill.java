@@ -34,7 +34,7 @@ public class Bill implements Serializable, Cloneable, Comparable {
      *         This method returns true if the bill has not been paid and if the paidDate is before or on the dueDate.
      */
     public boolean setPaid(Date paidDate) {
-        if (this.paidDate != null && paidDate != null && paidDate.isAfter(dueDate)) {
+        if (this.paidDate != null || paidDate != null || paidDate.isAfter(dueDate)) {
             return false;
         }
         this.paidDate = paidDate;
@@ -48,7 +48,7 @@ public class Bill implements Serializable, Cloneable, Comparable {
      * @return True if the dueDate is changed. False otherwise.
      */
     public boolean setDueDate(Date dueDate) {
-        if (isPaid()) {
+        if (isPaid() || dueDate == null) {
             return false;
         }
         this.dueDate = dueDate;
@@ -62,7 +62,7 @@ public class Bill implements Serializable, Cloneable, Comparable {
      * @return True if the change is successful.
      */
     boolean setAmount(Money amount) {
-        if (isPaid()) {
+        if (isPaid() || amount == null) {
             return false;
         }
         this.amount = amount;
@@ -98,11 +98,11 @@ public class Bill implements Serializable, Cloneable, Comparable {
     }
 
     @Override
-    protected Bill clone() throws CloneNotSupportedException {
-        Bill bill = (Bill)super.clone();
-        bill.setAmount(this.amount.clone());
-        bill.setDueDate(this.dueDate.clone());
-        bill.setPaid(this.paidDate.clone());
-        return bill;
+    protected final Bill clone() {
+        try {
+            return (Bill)super.clone();
+        } catch (CloneNotSupportedException x) {
+            return null;
+        }
     }
 }

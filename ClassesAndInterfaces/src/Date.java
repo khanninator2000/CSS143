@@ -36,7 +36,7 @@ public class Date implements Comparable, Cloneable, Serializable {
             this.year = year;
         }
         else {
-            throw new IllegalArgumentException("Year is out of range.");
+            throw new IllegalArgumentException("Year is out of range." + year);
         }
     }
 
@@ -90,8 +90,12 @@ public class Date implements Comparable, Cloneable, Serializable {
     }
 
     @Override
-    protected Date clone() throws CloneNotSupportedException {
-        return (Date)super.clone();
+    protected Date clone() {
+        try {
+            return (Date) super.clone();
+        } catch (CloneNotSupportedException x){
+            return null;
+        }
     }
 
     @Override

@@ -5,7 +5,7 @@ public class Square {
     private int y;
     private double length;
 
-    private String cout;
+    private String output_string;
 
     private Color color;
 
@@ -21,12 +21,12 @@ public class Square {
         this.x = x;
         this.y = y;
         this.length = length;
-        this.cout = "[]";
+        this.output_string = "[]";
         this.color = Color.BLACK;
     }
 
     public void draw() {
-        System.out.println(cout);
+        System.out.println(output_string);
     }
 
     public int getX() {
@@ -59,7 +59,7 @@ public class Square {
 
     @Override
     public String toString() {
-        return cout;
+        return output_string;
     }
 
     @Override
