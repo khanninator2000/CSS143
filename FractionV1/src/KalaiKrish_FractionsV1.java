@@ -30,7 +30,7 @@ public class KalaiKrish_FractionsV1 {
         }
 
         for (int i = 0; i < fraction_counter.size(); i++) {
-            System.out.println(fraction_counter.get(i).getFirst() + " " + fraction_counter.get(i).getSecond());
+            System.out.println(fraction_counter.get(i).getFirst() + " has a count of " + fraction_counter.get(i).getSecond());
         }
     }
 
