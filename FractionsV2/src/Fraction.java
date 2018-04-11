@@ -41,6 +41,7 @@ public class Fraction {
      *
      */
     public Fraction simplify() {
+        //int gcd = GCDEuclidean(this.numerator, this.denominator);
         int gcd = GCDEuclidean(this.numerator, this.denominator);
         if (gcd == 0) {
             return this;
@@ -67,6 +68,44 @@ public class Fraction {
         return GCDEuclidean(b, a%b);
     }
 
+    private int binaryGCD(int num, int den) {
+        if (num == den) {
+            return num;
+        }
+        if (num == 0) {
+            return den;
+        }
+        if (den == 0) {
+            return num;
+        }
+
+        if ((num & 1) == 0) {
+            if ((den & 1) == 0) {
+                // u & v are both even
+                return binaryGCD(num >> 1, den >> 1);
+            }
+            else {
+                // u is even, v is odd
+                return binaryGCD(num >> 1, den);
+            }
+        }
+        else {
+            if ((den & 1) == 0) {
+                // u is odd, v is even
+                return binaryGCD(num, den >> 1);
+            }
+            else {
+                // u & v are both odd
+                if (num >= den) {
+                    return binaryGCD((num - den)/2, den);
+                }
+                else {
+                    return binaryGCD((den - num)/2, num);
+                }
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Fraction) {
@@ -78,6 +117,7 @@ public class Fraction {
 
     @Override
     public String toString() {
-        return this.numerator + "/" + this.denominator;
+        Fraction simplified = simplify();
+        return simplified.numerator + "/" + simplified.denominator;
     }
 }

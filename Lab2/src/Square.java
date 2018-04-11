@@ -29,6 +29,16 @@ public class Square {
         System.out.println(output_string);
     }
 
+    public void draw(Graphics g) {
+        switch ((int)(Math.random() * 2)) {
+            case 0:
+                g.drawRect(x, y, (int) length, (int) length);
+                break;
+            case 1:
+                g.fillRect(x, y, (int) length, (int) length);
+        }
+    }
+
     public int getX() {
         return x;
     }

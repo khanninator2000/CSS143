@@ -29,6 +29,16 @@ public class Circle {
         System.out.println(cout);
     }
 
+    public void draw(Graphics  g) {
+        switch ((int)(Math.random() * 2)) {
+            case 0:
+                g.drawOval(x, y, (int) radius, (int) radius);
+                break;
+            case 1:
+                g.fillOval(x, y, (int) radius, (int) radius);
+        }
+    }
+
     public int getX() {
         return x;
     }

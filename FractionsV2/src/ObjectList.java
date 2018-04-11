@@ -1,20 +1,21 @@
 // Krish Kalai
 // CSS 143 B
-// FractionsV2h
+// FractionsV2
+
+import java.util.Iterator;
+import java.util.function.Consumer;
 
 /**
  * ArrayList-like class to store data in a dynamic resizing list.
- *
- * @param <T> The Object subclass of data, to prevent a {@code ClassCastException}.
  */
-public class ObjectList<T> {
+public class ObjectList<T> implements Iterable<T>{
     private Object[] elements;
     private int size;
 
     /**
      * Constructs an ObjectList of 8 elements.
      */
-    public ObjectList () {
+    public ObjectList() {
         elements = new Object[8];
         size = 0;
     }
@@ -47,9 +48,6 @@ public class ObjectList<T> {
             resize_upward();
         }
         System.arraycopy(elements, index, elements, index + 1, elements.length - 1 - index);
-//        for (int i = elements.length-1; i > index; i--) {
-//            elements[i] = elements[i-1];
-//        }
         elements[index] = item;
         size++;
     }
@@ -66,9 +64,6 @@ public class ObjectList<T> {
         }
 
         System.arraycopy(elements, index, elements, index + 1, size - index);
-//        for (int i = index; i < size; i++) {
-//            elements[i+1] = elements[i];
-//        }
     }
 
     /**
@@ -77,9 +72,6 @@ public class ObjectList<T> {
     private void resize_upward() {
         Object[] temp_elements = new Object[elements.length + (elements.length >> 1)];
         System.arraycopy(elements, 0, temp_elements, 0, elements.length);
-//        for (int i = 0; i < elements.length; i++) {
-//            temp_elements[i] = elements[i];
-//        }
         elements = temp_elements;
     }
 
@@ -116,5 +108,52 @@ public class ObjectList<T> {
         }
         s.append("]");
         return s.toString();
+    }
+
+    /**
+     * Creates a new Iterator for when starting the for-each loop.
+     *
+     * @return new ArrayListIterator Object.
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public Iterator<T> iterator() {
+        return new ArrayListIterator();
+    }
+
+    /**
+     * Impl. of what the for each loop should read.
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public void forEach(Consumer<? super T> action) {
+        for (int i = 0; i < size; i++) {
+            action.accept((T)elements[i]);
+        }
+    }
+
+    /**
+     * Iterator class to iterate through the ArrayList.
+     * The iterator will start from index 0, up to index {@code size}.
+     */
+    private class ArrayListIterator implements Iterator {
+        private int current_index = 0;
+
+        /**
+         * Checks if there is another accessible element in the Array.
+         */
+        @Override
+        public boolean hasNext() {
+            return current_index < size;
+        }
+
+        /**
+         * Returns the next object (as type Object) in the array,
+         * given that {@code Iterator::hasNext} is true.
+         */
+        @Override
+        public Object next() {
+            return elements[current_index++];
+        }
     }
 }

@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.util.Random;
+
 /**
  * Driver for CSS 162 Lab
  * 
@@ -8,8 +11,6 @@
 
 
 public class ShapesPictureDriver {
-
-	
 	//precondition: assumes {Square, Circle, Picture} all exist in the same working directory
 	//postcondition: 2 Squares, 2 Circles, and 1 Picture are constructed and manipulated, then reclaimed once main exits
 	public static void main(String[] args) {
@@ -72,6 +73,23 @@ public class ShapesPictureDriver {
 		obj.add(new Square(10, 30, 50));
 
 		System.out.println(obj);
+
+		painting();
+	}
+
+	public static void painting() {
+	    PicturePanel panel = new PicturePanel();
+	    Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            panel.add(new Circle(random.nextInt(500), random.nextInt(500), random.nextInt(100) + 10));
+            panel.add(new Square(random.nextInt(500), random.nextInt(500), random.nextInt(100) + 10));
+        }
+
+		JFrame frame = new JFrame();
+		frame.setContentPane(panel);
+		frame.setSize(500, 500);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 	}
 
 }

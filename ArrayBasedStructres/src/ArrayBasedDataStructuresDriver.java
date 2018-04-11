@@ -23,7 +23,6 @@ public class ArrayBasedDataStructuresDriver {
 		a.insert('t',1);
 
 		System.out.println(a.toString());
-
 		while(!a.isEmpty()) {
 			System.out.println(a.remove(0));
 		}

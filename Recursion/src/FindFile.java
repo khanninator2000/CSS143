@@ -12,8 +12,8 @@ public class FindFile {
     public FindFile(int max_files) {
 
         this.max_files = max_files;
-        count = 0;
-        files = new String[max_files];
+        this.count = 0;
+        this.files = new String[max_files];
     }
 
     public void directory_search(String target, String dir_name) {
@@ -28,7 +28,6 @@ public class FindFile {
         }
         for (String file : file_list) {
             File next = new File(current_file + "/" + file);
-            System.out.println(next.getAbsolutePath());
             if (next.isDirectory()) {
                 directory_search(target, next.getAbsolutePath());
             }
@@ -43,19 +42,19 @@ public class FindFile {
         }
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 
     public String[] getFiles() {
         return files;
+//        return null;
     }
 
-    public static void main(String[] $) throws IOException {
-        System.setOut(new PrintStream(new FileOutputStream("files.txt"), true));
+    public static void main(String[] $) {
         FindFile f = new FindFile(10000);
         try {
-            f.directory_search("iamacat.txt.jfndsjkfnsdkjfnkj", "/");
+            f.directory_search("robots.txt", "/");
             System.out.println(Arrays.toString(f.getFiles()));
         } finally {
             System.out.println("");

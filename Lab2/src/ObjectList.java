@@ -6,6 +6,14 @@ public class ObjectList {
         data[numElements++] = item;
     }
 
+    public int size() {
+        return numElements;
+    }
+
+    public Object get(int i) {
+        return data[i];
+    }
+
     public String toString() {
         StringBuilder retVal = new StringBuilder();
         for(int i = 0; i < numElements; retVal.append(data[i]).append(i < numElements - 1 ? ", " : ""), i++);
