@@ -21,7 +21,7 @@ public class FractionCounter {
      * @return True if the Fractions are equal.
      */
     public boolean compareAndIncrement(Fraction other) {
-        if (fraction.simplify().equals(other.simplify())) {
+        if (fraction.equals(other)) {
             count++;
             return true;
         }

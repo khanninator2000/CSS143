@@ -1,124 +1,100 @@
-/**
- * Implementation of a Linked List based FIFO queue.
- */
-public class Queue {
-    private Node head;
-    private Node tail;
+// Krish Kalai
+// CSS 143 B
+// ArrayBasedStructures
 
+public class Queue<T> {
+    private Object[] elements;
     private int size;
 
-    public Queue() {
-        this.head = null;
-        this.tail = null;
+    private int start;
+    private int end;
+
+    private boolean loop;
+
+    Queue() {
+        this.elements = new Object[4];
         this.size = 0;
+
+        this.start = 0;
+        this.end = 0;
+
+        this.loop = false;
     }
 
-    /**
-     * Adds an object to the beginning (head) of the list and increases the size by 1.
-     *
-     * @param object The object to add.
-     */
-    public void enqueue(Object object) {
-        Node new_object = new Node(object);
-        this.size++;
-        if (head == null) {
-            head = new_object;
-            tail = new_object;
+    public void enqueue(T item) {
+        if (size == elements.length) {
+            resize_upwards();
+            start = 0;
+            end = size;
+            loop = false;
         }
-        else {
-            new_object.next = head;
-            head.prev = new_object;
-            head = new_object;
+        elements[end] = item;
+        end++;
+        if (end == elements.length) {
+            end %= elements.length;
+            loop = true;
         }
+        size++;
     }
 
-    /**
-     * Removes the last object (tail), decrements the size and returns the Object.
-     *
-     * @return The tail Object in the queue.
-     * @throws IllegalStateException If the queue has no elements.
-     */
-    public Object dequeue() {
-        if (tail == null) {
-            throw new IllegalStateException("Queue is empty.");
+    @SuppressWarnings("unchecked")
+    public T dequeue() {
+        if (size == 0) {
+            return null;
         }
-        Object return_value = tail.data;
-        this.size--;
-        if (tail.prev != null) {
-            tail = tail.prev;
+        T item = (T)elements[start];
+        start++;
+        if (start == elements.length) {
+            start %= elements.length;
+            loop = false;
         }
-        else {
-            tail = null;
-            head = null;
-        }
-        return return_value;
+        size--;
+        return item;
     }
 
-    /**
-     * Gets the size (number of elements) of the queue.
-     *
-     * @return An integer representing the size of the queue.
-     */
     public int size() {
-        return size;
+        return this.size;
     }
 
-    /**
-     * Tests if the queue is empty.
-     *
-     * @return A boolean, true if the size is 0
-     *         (alternately, head/tail is null),
-     *         and false otherwise.
-     */
     public boolean isEmpty() {
-        return size == 0;
+        return this.size == 0;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return obj instanceof Queue && toString().equals(obj.toString());
-    }
-
-    /**
-     * Gets a String representation of the Queue, as comma separated values.
-     *
-     * @return A String with comma separated values of the elements of the queue.
-     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder("[");
-
-        for (Node it = head; it != null; it = it.next) {
-            str.append(it.data);
-            if (it.next != null) {
-                str.append(", ");
+        if (!loop) {
+            for (int i = start; i < end; i++) {
+                str.append(elements[i]);
+                if (i != end - 1) {
+                    str.append(", ");
+                }
             }
         }
-
-        str.append("]");
-        return str.toString();
+        else {
+            for (int i = start; i < elements.length; i++) {
+                str.append(elements[i]);
+                if (i != elements.length - 1) {
+                    str.append(", ");
+                }
+            }
+            for (int i = 0; i < end; i++) {
+                str.append(", ");
+                str.append(elements[i]);
+            }
+        }
+        return str + "]";
     }
 
-    /**
-     * Private nested Node class to build the Queue with.
-     * This approach is more efficient than using an array,
-     * because a linked list has O(1) for insertion and deletion,
-     * compared to O(N) for array insertion.
-     */
-    private class Node {
-        private Object data;
-        private Node next;
-        private Node prev;
-
-        public Node(Object data) {
-            this.data = data;
-            this.next = null;
-            this.prev = null;
+    private void resize_upwards() {
+        Object[] temp_elements = new Object[this.elements.length << 1];
+        if (!loop) {
+            System.arraycopy(elements, start, temp_elements, 0, end - start);
         }
-
-        @Override
-        public boolean equals(Object obj) {
-            return obj instanceof Node && this.data == ((Node) obj).data;
+        else {
+            System.arraycopy(elements, start, temp_elements, 0, this.elements.length - start);
+            System.arraycopy(elements, 0, temp_elements, start+1, end);
         }
+        this.elements = temp_elements;
     }
 }

@@ -81,8 +81,8 @@ public class ShapesPictureDriver {
 	    PicturePanel panel = new PicturePanel();
 	    Random random = new Random();
         for (int i = 0; i < 10; i++) {
-            panel.add(new Circle(random.nextInt(500), random.nextInt(500), random.nextInt(100) + 10));
-            panel.add(new Square(random.nextInt(500), random.nextInt(500), random.nextInt(100) + 10));
+            panel.add(new Circle(random.nextInt(500), random.nextInt(500), random.nextInt(1000) + 10));
+            panel.add(new Square(random.nextInt(500), random.nextInt(500), random.nextInt(1000) + 10));
         }
 
 		JFrame frame = new JFrame();

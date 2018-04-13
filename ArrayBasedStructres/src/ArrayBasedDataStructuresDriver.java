@@ -1,18 +1,18 @@
-/*
- *  Incomplete Driver for ArrayList(ObjectList), Stack and Queue
- * 
- * 
- */
+// Krish Kalai
+// CSS 143 B
+// ArrayBasedStructures
 
 public class ArrayBasedDataStructuresDriver {
 
 	public static void main(String[] args) {
-        System.out.println("Stack");
-		stackTests();
-        System.out.println("Queue");
-		queueTests();
-        System.out.println("Arrays");
-		arrayListTests();
+//        System.out.println("LinkedListStack");
+//		stackTests();
+//		arrayStackTests();
+//        System.out.println("LinkedListQueue");
+		arrayQueueTests();
+//		queueTests();
+//        System.out.println("Arrays");
+//		arrayListTests();
 	}
 
 	private static void arrayListTests() {
@@ -29,7 +29,7 @@ public class ArrayBasedDataStructuresDriver {
 
 		a.insert("<><", 0);
 		a.insert("()(", 1);
-		a.insert("{}{)", 0);
+		a.insert("{}{", 0);
         System.out.println(a + " " + a.size());
         try {
             a.insert("[]]", 4);
@@ -48,42 +48,123 @@ public class ArrayBasedDataStructuresDriver {
 	}
 
 	private static void queueTests() {
-		Queue a = new Queue();
+        LinkedListQueue queue= new LinkedListQueue();
+        System.out.println(queue + " " + queue.size());
+        queue.enqueue(0);
+        System.out.println(queue + " " + queue.size());
+        queue.enqueue(1);
+        System.out.println(queue + " " + queue.size());
+        queue.enqueue(2);
+        System.out.println(queue + " " + queue.size());
+        queue.enqueue(3);
+        System.out.println(queue + " " + queue.size());
 
-		a.enqueue('B');
-		a.enqueue('a');
-		a.enqueue('t');
+        queue.dequeue();
+        System.out.println(queue + " " + queue.size());
 
-		System.out.println(a.toString());
+        queue.enqueue(4);
+        System.out.println(queue + " " + queue.size());
 
-        Queue b = new Queue();
-
-        b.enqueue('B');
-        b.enqueue('a');
-        b.enqueue('t');
-
-        System.out.println(a.equals(b));
-
-		while(!a.isEmpty()) {
-			System.out.println(a.dequeue());
-		}
-
-        System.out.println(a.equals(b));
+        queue.dequeue();
+        System.out.println(queue + " " + queue.size());
+        queue.dequeue();
+        System.out.println(queue + " " + queue.size());
+        queue.dequeue();
+        System.out.println(queue + " " + queue.size());
+        queue.dequeue();
+        System.out.println(queue + " " + queue.size());
 	}
 
 	private static void stackTests() {
-		Stack a = new Stack();
-		
-		a.push('B');
-		a.push('a');
-		a.push('t');
-		
-		System.out.println(a.toString());
-		
-		while(!a.isEmpty()) {
-			System.out.println(a.pop());
-		}
+        LinkedListStack stack = new LinkedListStack();
+        System.out.println(stack + " " + stack.size());
+        stack.push(0);
+        System.out.println(stack + " " + stack.size());
+        stack.push(1);
+        System.out.println(stack + " " + stack.size());
+        stack.push(2);
+        System.out.println(stack + " " + stack.size());
+        stack.push(3);
+        System.out.println(stack + " " + stack.size());
+
+        stack.pop();
+        System.out.println(stack + " " + stack.size());
+
+        stack.push(4);
+        System.out.println(stack + " " + stack.size());
+
+        stack.pop();
+        System.out.println(stack + " " + stack.size());
+        stack.pop();
+        System.out.println(stack + " " + stack.size());
+        stack.pop();
+        System.out.println(stack + " " + stack.size());
+        stack.pop();
+        System.out.println(stack + " " + stack.size());
 	}
-	
+
+	private static void arrayStackTests() {
+        Stack<Integer> stack = new Stack<>();
+        System.out.println(stack + " " + stack.size());
+        stack.push(0);
+        System.out.println(stack + " " + stack.size());
+        stack.push(1);
+        System.out.println(stack + " " + stack.size());
+        stack.push(2);
+        System.out.println(stack + " " + stack.size());
+        stack.push(3);
+        System.out.println(stack + " " + stack.size());
+
+        stack.pop();
+        System.out.println(stack + " " + stack.size());
+
+        stack.push(4);
+        System.out.println(stack + " " + stack.size());
+
+        stack.pop();
+        System.out.println(stack + " " + stack.size());
+        stack.pop();
+        System.out.println(stack + " " + stack.size());
+        stack.pop();
+        System.out.println(stack + " " + stack.size());
+        stack.pop();
+        System.out.println(stack + " " + stack.size());
+    }
+
+	private static void arrayQueueTests() {
+		Queue<Integer> arrayQueue = new Queue<>(); // [null, null, null, null]
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+		arrayQueue.enqueue(0);
+		System.out.println(arrayQueue + " " + arrayQueue.size());
+        arrayQueue.enqueue(1);
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+        arrayQueue.enqueue(2);
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+        arrayQueue.enqueue(3);
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+        arrayQueue.enqueue(4);
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+//        arrayQueue.enqueue(5);
+//        System.out.println(arrayQueue + " " + arrayQueue.size());
+
+        arrayQueue.dequeue();
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+
+        arrayQueue.enqueue(5);
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+
+        arrayQueue.dequeue();
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+        arrayQueue.dequeue();
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+        arrayQueue.dequeue();
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+        arrayQueue.dequeue();
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+        arrayQueue.dequeue();
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+        arrayQueue.dequeue();
+        System.out.println(arrayQueue + " " + arrayQueue.size());
+	}
 
 }

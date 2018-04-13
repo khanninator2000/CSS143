@@ -8,13 +8,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] $) throws FileNotFoundException {
+
         ObjectList<FractionCounter> counter = new ObjectList<>();
         Scanner ifstream = new Scanner(new FileInputStream("fractions.txt"));
 
         found_a_fraction:
         while (ifstream.hasNextLine()) {
             String[] fraction_component = ifstream.nextLine().split("[/]");
-            Fraction current_fraction = new Fraction(Integer.parseInt(fraction_component[0]), Integer.parseInt(fraction_component[1]));
+            Fraction current_fraction = new Fraction(Integer.parseInt(fraction_component[0]),
+                                                     Integer.parseInt(fraction_component[1]));
 
             for (FractionCounter f:counter) {
                 if (f.compareAndIncrement(current_fraction)) {

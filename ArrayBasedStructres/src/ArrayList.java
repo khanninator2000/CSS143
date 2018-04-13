@@ -1,6 +1,6 @@
 // Krish Kalai
 // CSS 143 B
-// FractionsV2
+// ArrayBasedStructures
 
 public class ArrayList {
     private Object[] elements;

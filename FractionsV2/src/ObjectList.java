@@ -70,9 +70,9 @@ public class ObjectList<T> implements Iterable<T>{
      * This method is called if the array is out of space. A new array of current_length * 150% is created.
      */
     private void resize_upward() {
-        Object[] temp_elements = new Object[elements.length + (elements.length >> 1)];
-        System.arraycopy(elements, 0, temp_elements, 0, elements.length);
-        elements = temp_elements;
+        Object[] $_$ = new Object[elements.length + (elements.length >> 1)];
+        System.arraycopy(elements, 0, $_$, 0, elements.length);
+        elements = $_$;
     }
 
     /**

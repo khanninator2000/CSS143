@@ -23,7 +23,7 @@ public class PicturePanel extends JPanel {
         super.paintComponent(g);
 
         for (int i = 0; i < objectList.size(); i++) {
-            g.setColor(new Color((int)(Math.random()*0xFFFFF)));
+            g.setColor(new Color((int)(Math.random()*0xFF_FF_FF)));
             if (objectList.get(i) instanceof Square) {
                 ((Square) objectList.get(i)).draw(g);
             }
