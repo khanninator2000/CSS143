@@ -3,10 +3,10 @@ public class Math2 {
     public static final double E = 2.7182818285;
 
     public static int max(int a, int b) {
-        return a ^ ((a ^ b) & -((a < b) ? 1 : 0));
+        return (a > b) ? a : b;
     }
 
-    public static double max(double a, double b) {
+    public strictfp static double max(double a, double b) {
         return a > b ? a : b;
     }
 

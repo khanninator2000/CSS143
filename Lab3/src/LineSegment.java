@@ -21,7 +21,7 @@ public class LineSegment {
     }
 
     public Point2D getStart() {
-        return start;
+        return new Point2D(start);
     }
 
     public void setStart(Point2D start) {
@@ -32,7 +32,7 @@ public class LineSegment {
     }
 
     public Point2D getEnd() {
-        return end;
+        return new Point2D(end);
     }
 
     public void setEnd(Point2D end) {
@@ -43,7 +43,7 @@ public class LineSegment {
     }
 
     public double distance() {
-        return sqrt(pow(abs(end.getX() - start.getX()), 2) + pow(abs(end.getY() - start.getX()), 2));
+        return pow(pow(abs(end.getX() - start.getX()), 2) + pow(abs(end.getY() - start.getX()), 2), 0.5);
     }
 
     @Override

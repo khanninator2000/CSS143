@@ -3,107 +3,49 @@
 // ArrayBasedStructures
 
 public class ArrayBasedDataStructuresDriver {
-
 	public static void main(String[] args) {
-//        System.out.println("LinkedListStack");
+	    String s = "Stack";
+        System.out.println(s.charAt(0));
+        System.out.println('S' == 's');
+
+//        System.out.println("Stack");
 //		stackTests();
-//		arrayStackTests();
-//        System.out.println("LinkedListQueue");
-		arrayQueueTests();
+//        System.out.println("Queue");
 //		queueTests();
 //        System.out.println("Arrays");
 //		arrayListTests();
 	}
 
 	private static void arrayListTests() {
-		ArrayList a = new ArrayList();
+		ArrayList<Integer> array = new ArrayList<>();
 
-		a.insert('B', 0);
-		a.insert('a',0);
-		a.insert('t',1);
+        System.out.println(array + " " + array.size());
+        array.insert(0,0);
+        System.out.println(array + " " + array.size());
+        array.insert(1,0);
+        System.out.println(array + " " + array.size());
+        array.insert(2,2);
+        System.out.println(array + " " + array.size());
+        array.insert(3,2);
+        System.out.println(array + " " + array.size());
 
-		System.out.println(a.toString());
-		while(!a.isEmpty()) {
-			System.out.println(a.remove(0));
-		}
+        array.remove(array.size()-1);
+        System.out.println(array + " " + array.size());
 
-		a.insert("<><", 0);
-		a.insert("()(", 1);
-		a.insert("{}{", 0);
-        System.out.println(a + " " + a.size());
-        try {
-            a.insert("[]]", 4);
-        } catch (IndexOutOfBoundsException x) {
-            System.out.println("That's not a fish");
-        }
+        array.insert(array.size(), array.size()-1);
+        System.out.println(array + " " + array.size());
 
-        while (true) {
-            try {
-                a.remove(0);
-            }catch (IndexOutOfBoundsException x) {
-                break;
-            }
-        }
-        System.out.println(a);
-	}
-
-	private static void queueTests() {
-        LinkedListQueue queue= new LinkedListQueue();
-        System.out.println(queue + " " + queue.size());
-        queue.enqueue(0);
-        System.out.println(queue + " " + queue.size());
-        queue.enqueue(1);
-        System.out.println(queue + " " + queue.size());
-        queue.enqueue(2);
-        System.out.println(queue + " " + queue.size());
-        queue.enqueue(3);
-        System.out.println(queue + " " + queue.size());
-
-        queue.dequeue();
-        System.out.println(queue + " " + queue.size());
-
-        queue.enqueue(4);
-        System.out.println(queue + " " + queue.size());
-
-        queue.dequeue();
-        System.out.println(queue + " " + queue.size());
-        queue.dequeue();
-        System.out.println(queue + " " + queue.size());
-        queue.dequeue();
-        System.out.println(queue + " " + queue.size());
-        queue.dequeue();
-        System.out.println(queue + " " + queue.size());
-	}
+        array.remove(0);
+        System.out.println(array + " " + array.size());
+        array.remove(1);
+        System.out.println(array + " " + array.size());
+        array.remove(0);
+        System.out.println(array + " " + array.size());
+        array.remove(0);
+        System.out.println(array + " " + array.size());
+    }
 
 	private static void stackTests() {
-        LinkedListStack stack = new LinkedListStack();
-        System.out.println(stack + " " + stack.size());
-        stack.push(0);
-        System.out.println(stack + " " + stack.size());
-        stack.push(1);
-        System.out.println(stack + " " + stack.size());
-        stack.push(2);
-        System.out.println(stack + " " + stack.size());
-        stack.push(3);
-        System.out.println(stack + " " + stack.size());
-
-        stack.pop();
-        System.out.println(stack + " " + stack.size());
-
-        stack.push(4);
-        System.out.println(stack + " " + stack.size());
-
-        stack.pop();
-        System.out.println(stack + " " + stack.size());
-        stack.pop();
-        System.out.println(stack + " " + stack.size());
-        stack.pop();
-        System.out.println(stack + " " + stack.size());
-        stack.pop();
-        System.out.println(stack + " " + stack.size());
-	}
-
-	private static void arrayStackTests() {
         Stack<Integer> stack = new Stack<>();
         System.out.println(stack + " " + stack.size());
         stack.push(0);
@@ -121,17 +63,21 @@ public class ArrayBasedDataStructuresDriver {
         stack.push(4);
         System.out.println(stack + " " + stack.size());
 
-        stack.pop();
+        System.out.println(stack.pop());
         System.out.println(stack + " " + stack.size());
-        stack.pop();
+        System.out.println(stack.pop());
         System.out.println(stack + " " + stack.size());
-        stack.pop();
+        System.out.println(stack.pop());
         System.out.println(stack + " " + stack.size());
-        stack.pop();
+        System.out.println(stack.pop());
+        System.out.println(stack + " " + stack.size());
+        System.out.println(stack.pop());
+        System.out.println(stack + " " + stack.size());
+        System.out.println(stack.pop());
         System.out.println(stack + " " + stack.size());
     }
 
-	private static void arrayQueueTests() {
+	private static void queueTests() {
 		Queue<Integer> arrayQueue = new Queue<>(); // [null, null, null, null]
         System.out.println(arrayQueue + " " + arrayQueue.size());
 		arrayQueue.enqueue(0);

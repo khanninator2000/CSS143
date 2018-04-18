@@ -1,3 +1,6 @@
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class CharList {
     private char[] letters;
     private int size;
@@ -8,18 +11,15 @@ public class CharList {
     }
 
     public CharList(String s) {
-        letters = new char[s.length()];
-
-        for (int i = 0; i < s.length(); i++) {
-            letters[i] = s.charAt(i);
-        }
-        size = letters.length;
+        letters = new char[s.length()+8];
+        size = s.length();
+        for (int i = 0; i < s.length(); letters[i] = s.charAt(i), i++);
     }
 
     public CharList(CharList c) {
-        this.letters = new char[c.letters.length];
+        this.letters = new char[c.letters.length+8];
         System.arraycopy(c.letters, 0, this.letters, 0, c.letters.length);
-        this.size = letters.length;
+        this.size = c.size;
     }
 
     public void add(char t) {

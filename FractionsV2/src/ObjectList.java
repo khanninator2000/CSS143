@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 /**
  * ArrayList-like class to store data in a dynamic resizing list.
  */
-public class ObjectList<T> implements Iterable<T>{
+public class ObjectList<T> implements Iterable<T> {
     private Object[] elements;
     private int size;
 

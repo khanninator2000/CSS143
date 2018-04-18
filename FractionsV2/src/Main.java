@@ -4,10 +4,16 @@
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] $) throws FileNotFoundException {
+       Fraction another_fraction = new Fraction(1, 2);
+        Date date = new Date();
+        System.out.println(another_fraction.equals(null));
+        System.out.println(another_fraction.equals(date));
+        System.out.println(another_fraction.equals(another_fraction));
 
         ObjectList<FractionCounter> counter = new ObjectList<>();
         Scanner ifstream = new Scanner(new FileInputStream("fractions.txt"));
@@ -24,11 +30,6 @@ public class Main {
                 }
             }
 
-            for (int i = 0; i < counter.size(); i++) {
-                if (counter.get(i).compareAndIncrement(current_fraction)) {
-                    continue found_a_fraction; //Found this fraction, can skip rest of ObjectArray
-                }
-            }
             counter.add(new FractionCounter(current_fraction));
         }
 

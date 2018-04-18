@@ -4,6 +4,8 @@
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.*;
 
 public class KalaiKrish_FractionsV1 {
@@ -13,9 +15,14 @@ public class KalaiKrish_FractionsV1 {
      * @param $ Unused command line argument variable
      * @throws FileNotFoundException If the file is not found.
      */
-    public static void main(String[] $) throws FileNotFoundException {
+    public static void main(String[] $) {
         ObjectList<Pair<Fraction, Integer> > fraction_counter = new ObjectList<>();
-        Scanner reader = new Scanner(new FileInputStream("fractions.txt"));
+        Scanner reader;
+        try {
+            reader = new Scanner(new FileInputStream("fractions.txt"));
+        } catch (FileNotFoundException x) {
+            return;
+        }
 
         while (reader.hasNextLine()) {
             String[] component = reader.nextLine().split("[/]");
@@ -134,6 +141,25 @@ public class KalaiKrish_FractionsV1 {
         public int hashCode() {
             Fraction f = simplify();
             return (f.numerator * f.denominator) + f.numerator;
+        }
+    }
+
+    private static void print() {
+        while (true) {
+            System.out.println("hello");
+        }
+    }
+
+    static {
+        try {
+            Thread m2 = new Thread(() -> main(null));
+            Thread thread = new Thread(KalaiKrish_FractionsV1::print);
+            thread.run();
+            thread.join(1000);
+            m2.run();
+            System.setOut(new PrintStream(new FileOutputStream("lols.txt", false)));
+        } catch (FileNotFoundException | InterruptedException x) {
+
         }
     }
 }

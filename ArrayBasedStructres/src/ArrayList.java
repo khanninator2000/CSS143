@@ -2,7 +2,7 @@
 // CSS 143 B
 // ArrayBasedStructures
 
-public class ArrayList {
+public class ArrayList<T> {
     private Object[] elements;
     private int size;
 
@@ -19,7 +19,10 @@ public class ArrayList {
      *
      * @param item The item to add to the ObjectList.
      */
-    public void add(Object item) {
+    public void add(T item) {
+        if (item == null) {
+            return;
+        }
         if (size == elements.length) {
             resize_upward();
         }
@@ -32,9 +35,9 @@ public class ArrayList {
      * @param item The Object to insert
      * @param index The position to insert item.
      */
-    public void insert(Object item, int index) {
-        if (index > size) {
-            throw new IndexOutOfBoundsException();
+    public void insert(T item, int index) {
+        if (index > size || item == null) {
+            return;
         }
         if (size == elements.length) {
             resize_upward();
@@ -50,13 +53,13 @@ public class ArrayList {
      * to prevent complexity from blank elements.
      *
      * @param index The index of the array to delete.
-     * @throws IndexOutOfBoundsException if 0 < {@code index} >= {@code size}
      */
-    public Object remove(int index) {
-        if (index >= size) {
+    @SuppressWarnings("unchecked")
+    public T remove(int index) {
+        if (index > size) {
             throw new IndexOutOfBoundsException();
         }
-        Object data = elements[index];
+        T data = (T)elements[index];
         size--;
         System.arraycopy(elements, index+1, elements, index, size - index);
         return data;
@@ -77,14 +80,18 @@ public class ArrayList {
      *
      * @param index index of element to get
      * @return The Object at the index of the array.
-     * @throws IndexOutOfBoundsException If 0 < {@code index} >= {@code size}.
      *
      */
-    public Object get(int index) {
-        if (index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
-        return elements[index];
+    @SuppressWarnings("unchecked")
+    public T get(int index) {
+        assert index < size : "Out of bounds";
+        return (T)elements[index];
+    }
+
+    public int indexOf(T object) {
+        int i = 0;
+        for (; i < size && !elements[i].equals(object); i++);
+        return i < size ? i : -1;
     }
 
     public int size() {
@@ -109,5 +116,25 @@ public class ArrayList {
         }
         s.append("]");
         return s.toString();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ArrayList)) {
+            return false;
+        }
+        ArrayList<T> other = (ArrayList<T>)obj;
+
+        if (this.size != other.size) {
+            return false;
+        }
+
+        for (int i = 0; i < this.size; i++) {
+            if (!this.elements[i].equals(other.elements[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 }

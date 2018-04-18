@@ -11,8 +11,8 @@ public class Queue<T> {
 
     private boolean loop;
 
-    Queue() {
-        this.elements = new Object[4];
+    public Queue() {
+        this.elements = new Object[8];
         this.size = 0;
 
         this.start = 0;
@@ -22,6 +22,9 @@ public class Queue<T> {
     }
 
     public void enqueue(T item) {
+        if (item == null) {
+            return;
+        }
         if (size == elements.length) {
             resize_upwards();
             start = 0;
@@ -60,6 +63,9 @@ public class Queue<T> {
         return this.size == 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder("[");
@@ -84,6 +90,16 @@ public class Queue<T> {
             }
         }
         return str + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Queue<?>)) {
+            return false;
+        }
+
+        Queue<?> queue = (Queue<?>)obj;
+        return this.toString().equals(queue.toString());
     }
 
     private void resize_upwards() {

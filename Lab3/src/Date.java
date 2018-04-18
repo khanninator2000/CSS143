@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+
 public class Date {
     private int day;
     private int month;
@@ -20,7 +22,7 @@ public class Date {
     }
 
     public void setDay(int day) {
-        if (month < 0 || month > 31) {
+        if (day < 1 || day > 31) {
             return;
         }
         this.day = day;
@@ -31,7 +33,7 @@ public class Date {
     }
 
     public void setMonth(int month) {
-        if (month < 0 || month > 12) {
+        if (month < 1 || month > 12) {
             return;
         }
         this.month = month;
@@ -56,15 +58,14 @@ public class Date {
 
     @Override
     public String toString() {
-        return (this.month < 10 ? ("0" + this.month) : this.month) + "/" +
-                (this.day < 10 ? ("0" + this.day) : this.day) + "/" +
-                this.year;
+        return (this.month < 10 ? ("0" + this.month) : this.month) + "/" + (this.day < 10 ? ("0" + this.day) : this.day) + "/" + this.year;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null && obj instanceof Date &&
-                this.day == ((Date)obj).day && this.month == ((Date)obj).month &&
+        return obj instanceof Date &&
+                this.day == ((Date)obj).day &&
+                this.month == ((Date)obj).month &&
                 this.year == ((Date)obj).year;
     }
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Point2D {
     private int x;
     private int y;
@@ -9,6 +11,11 @@ public class Point2D {
     public Point2D(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Point2D(Point2D point2D) {
+        this.x = point2D.x;
+        this.y = point2D.y;
     }
 
     public int getX() {

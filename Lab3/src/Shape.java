@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.OptionalDouble;
 
 public class Shape {
     /**
@@ -10,12 +11,12 @@ public class Shape {
     protected Color color;
 
     public Shape() {
-        this(0, 0, Color.BLACK);
+        this(0, 0, new Color((int)(Math.random()* 16_777_215)));
     }
 
     public Shape(int x, int y, Color color) {
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
         this.color = color;
     }
 
@@ -47,6 +48,6 @@ public class Shape {
 
     @Override
     public String toString() {
-        return "Shape (" + x + "," + y + ") and Color" + color.toString() + " and area " + getArea();
+        return "Shape (" + x + "," + y + ") and Color " + color.toString() + " and area " + getArea();
     }
 }

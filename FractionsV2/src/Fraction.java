@@ -3,17 +3,41 @@
 // FractionsV2
 
 /**
- * Immutable Fraction class.
+ * Class that stores a fraction (where the numerator and denominators are integers).
  */
 public class Fraction {
-    public final int numerator;
-    public final int denominator;
+    private int numerator;
+    private int denominator;
 
     public Fraction() {
         this(0,0);
     }
 
     public Fraction(int numerator, int denominator) {
+        setFraction(numerator, denominator);
+    }
+
+    public int getNumerator() {
+        return numerator;
+    }
+
+    public int getDenominator() {
+        return denominator;
+    }
+
+    public void setNumerator(int numerator) {
+        setFraction(numerator, this.denominator);
+    }
+
+    public void setDenominator(int denominator) {
+        setFraction(this.numerator, denominator);
+    }
+
+    /**
+     * This method sets a numerator and/or denominator to a Fraction of it's simplest
+     * form.
+     */
+    private void setFraction(int numerator, int denominator) {
         int gcd = binaryGCD(numerator, denominator);
         if (gcd == 0) {
             this.numerator = numerator;
@@ -27,6 +51,7 @@ public class Fraction {
 
     /**
      * Recursive method that uses the binary GCD/Stein's method for GCD.
+     * This has a 60% efficiency over Euler's method (despite both being quadratic time).
      *
      * @param u The numerator of the fraction.
      * @param v The denominator of the fraction.
@@ -54,18 +79,20 @@ public class Fraction {
                 return binaryGCD(u >> 1, v);
             }
         }
+        else {
+            if ((v & 1) == 0) {
+                // u is odd and v is even
+                return binaryGCD(u, v >> 1);
+            }
 
-        if ((v & 1) == 0) {
-            // u is odd and v is even
-            return binaryGCD(u, v >> 1);
+            // reduce larger argument
+            if (u > v) {
+                return binaryGCD((u - v) >> 1, v);
+            }
+            else {
+                return binaryGCD((v - u) >> 1, u);
+            }
         }
-
-        // reduce larger argument
-        if (u > v) {
-            return binaryGCD((u - v) >> 1, v);
-        }
-
-        return binaryGCD((v - u) >> 1, u);
     }
 
     /**
