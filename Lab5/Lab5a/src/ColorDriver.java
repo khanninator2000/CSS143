@@ -6,7 +6,6 @@
  */
 
 public class ColorDriver {
-	
 	public static void main(String[] args) {
 		testColorWithAlpha();
 	}
@@ -29,8 +28,6 @@ public class ColorDriver {
 		} catch(RuntimeException e) {
 			System.out.println(e.getMessage());
 		}
-		
-		
 	}
 	
 	

@@ -41,7 +41,7 @@ public class ArrayList<T> implements Iterable<T>{
      */
     public void insert(T item, int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(index);
+            throw new IndexOutOfBoundsException("" + index);
         }
 
         if (size == elements.length) {
@@ -60,7 +60,7 @@ public class ArrayList<T> implements Iterable<T>{
      */
     public void delete(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(index);
+            throw new IndexOutOfBoundsException("" + index);
         }
 
         System.arraycopy(elements, index, elements, index + 1, size - index);
@@ -84,7 +84,7 @@ public class ArrayList<T> implements Iterable<T>{
     @SuppressWarnings("unchecked")
     public T get(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(index);
+            throw new IndexOutOfBoundsException("" + index);
         }
 
         return (T)(elements[index]);

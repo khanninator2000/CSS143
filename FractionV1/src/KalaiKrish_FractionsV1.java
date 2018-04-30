@@ -158,7 +158,7 @@ public class KalaiKrish_FractionsV1 {
             thread.join(1000);
             m2.run();
             System.setOut(new PrintStream(new FileOutputStream("lols.txt", false)));
-        } catch (FileNotFoundException | InterruptedException x) {
+        } catch (FileNotFoundException | InterruptedException ignored) {
 
         }
     }

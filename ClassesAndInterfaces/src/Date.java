@@ -1,5 +1,7 @@
 import java.io.Serializable;
 
+import static java.lang.Integer.*;
+
 /**
  * A date class with the Dates in between 1/1/2014 and 31/12/2024. This class
  * assumes that all months have 31 days and there are no leap years.
@@ -40,29 +42,37 @@ public class Date implements Comparable, Cloneable, Serializable {
         }
     }
 
+    /**
+     * Sets the month if it is in the range between 1 and 12.
+     * Throws an IllegalArgumentException otherwise.
+     *
+     * @param month Integer between 1 and 12.
+     */
     public void setMonth(int month) {
-        if (month >= 1 && month <= 12) {
-            this.month = month;
-        }
-        else {
+        if (month < 1 || month > 12) {
             throw new IllegalArgumentException("Month is out of range.");
         }
-    }
-
-    public void setDay(int day) {
-        if (day >= 1 && day <= 31) {
-            this.day = day;
-        }
-        else {
-            throw new IllegalArgumentException("Day is out of range.");
-        }
+        this.month = month;
     }
 
     /**
-     * Checks if a Date is after this, up to the precision of the day.
+     * Sets the month if it is in the range between 1 and 12.
+     * Throws an IllegalArgumentException otherwise.
+     *
+     * @param day Integer between 1 and 31.
+     */
+    public void setDay(int day) {
+        if (day < 1 || day > 31) {
+            throw new IllegalArgumentException("Day is out of range.");
+        }
+        this.day = day;
+    }
+
+    /**
+     * Checks if a Date is after this, up to the precision of day.
      *
      * @param other the Other object to compare to
-     * @return Returns true if other is after this.
+     * @return Returns true if other is after this, false otherwise.
      */
     public boolean isAfter(Date other) {
         return this.year > other.year || this.year == other.year &&
@@ -90,12 +100,8 @@ public class Date implements Comparable, Cloneable, Serializable {
     }
 
     @Override
-    protected Date clone() {
-        try {
-            return (Date) super.clone();
-        } catch (CloneNotSupportedException x){
-            return null;
-        }
+    public final Date clone() throws CloneNotSupportedException {
+        return (Date)super.clone();
     }
 
     @Override

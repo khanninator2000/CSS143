@@ -5,11 +5,6 @@ import java.io.Serializable;
  */
 public class Money implements Comparable, Cloneable, Serializable {
     private int dollars;
-
-    /**
-     * An integer between 0 and 99. If this value exceeds 99, the (integer) quotient is added to dollars and the
-     * modulo to 100 is saved.
-     */
     private int cents;
 
     public Money() {
@@ -91,7 +86,7 @@ public class Money implements Comparable, Cloneable, Serializable {
      * {@inheritDoc}
      */
     @Override
-    protected final Money clone() {
+    public final Money clone() {
         try {
             Money money = (Money) super.clone();
             money.setMoney(this.dollars, this.cents);

@@ -1,42 +1,74 @@
 import java.awt.*;
 
-/* Class Shape
- *
- * By Rob Nash
- * 
- * This is the superclass in a hierarchy of shapes that you have to construct
+/**
+ * Generic Shape class. Methods of this class is to be overridden.
+ * Draw() is abstract because all Shapes need to be drawn on a graphics context.
  */
-
-//the superclass in our inheritance hierarchy
-//all "common" features, functions and data should go here
-//for example, all shapes in Java2D have a x,y that declares their position
-//and many of the shapes exposed have a width and a height (but not all, so we didn't put width and height here)
-//note that this class is mostly empty, as there is no algorithm generic enough to guess an arbitrary shape's area (future subclasses must override getArea() to provide something reasonable)
-//also, the draw method is empty too, as we don't know what shape to draw here! (again, our subclasses will need to replace this method with one that actually draws things)
-class Shape {
-	private int x = 0;
-	private int y = 0;
-
-	Color color;
-
+public abstract class Shape {
+    /**
+     * The x-coordinate of the shape. Whether it is the corner or the center coordinate is
+     * up to the subclass implementation.
+     */
+	private int x;
+    
+    /**
+     * The x-coordinate of the shape. Whether it is the corner or the center coordinate is
+     * up to the subclass implementation.
+     */
+	private int y;
+    
+    /**
+     * The color the Shape.
+     */
+	protected Color color;
+    
+    /**
+     * Constructor with x and y coordinates.
+     * Color is initialized to black.
+     *
+     * @param x The x coordinate as an int.
+     * @param y The y coordinate as an int
+     */
 	public Shape(int x, int y) {
-		this.x = x;
-		this.y = y;
-
-		this.color = Color.RED;
+		this(x, y, new Color(0));
 	}
-
-	public double getArea() {
-		return -1;
+    
+    /**
+     * Constructor with x and y coordinates and color.
+     *
+     * @param x The x coordinate, as an int.
+     * @param y The y coordinate, as an int.
+     * @param color The color of the Shape
+     */
+    public Shape(int x, int y, Color color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+    }
+    
+    /**
+     * Method for subclasses to optionally override.
+     * This method returns -1 because getting a
+     * deterministic area is impossible.
+     *
+     * @return -1 as a double.
+     */
+    public double getArea() {
+		return -1.;
 	}
+    
+    /**
+     * Method for subclasses to override.
+     *
+     * @param g Graphics context
+     */
+	public abstract void draw(Graphics g);
 	
-	public void draw( Graphics g ){}
-	
-	public int getX() {
+	public final int getX() {
 	    return x;
 	}
 
-	public int getY() {
+	public final int getY() {
 	    return y;
 	}
 }

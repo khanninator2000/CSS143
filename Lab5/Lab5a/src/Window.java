@@ -1,10 +1,11 @@
-import javax.swing.JFrame;
+import javax.swing.*;
+
 public class Window extends JFrame {
 
   public Window() {
       setSize(400,400);
       setVisible(true);
-     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 }
 
    public static void main (String[] args) {

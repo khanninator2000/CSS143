@@ -1,7 +1,4 @@
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.Arrays;
 
 public class FindFile {
@@ -48,13 +45,12 @@ public class FindFile {
 
     public String[] getFiles() {
         return files;
-//        return null;
     }
 
     public static void main(String[] $) {
         FindFile f = new FindFile(10000);
         try {
-            f.directory_search("robots.txt", "/");
+            f.directory_search("robots.txt", "/Users/krishkalai");
             System.out.println(Arrays.toString(f.getFiles()));
         } finally {
             System.out.println("");

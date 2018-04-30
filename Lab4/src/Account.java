@@ -19,8 +19,7 @@ public class Account {
 // Instance methods
 	/** Deposits 'amount' into the account
 	 */
-	public void deposit(int amount)
-	{
+	public void deposit(int amount) {
 		balance = balance + amount;
 	}
 
@@ -29,22 +28,21 @@ public class Account {
 	 *	This method should be re-written so that there is not a possibility of
 	 *	having a negative balance.
 	 */
-	public void withdraw(int amount)
-	{
-		balance = balance - amount;
+	public void withdraw(int amount) {
+	    if (amount <= balance) {
+            balance = balance - amount;
+        }
 	}
 
 	/* Returns the balance of the Account
 	 */
-	public double getBalance()
-	{
+	public double getBalance() {
 		return balance;
 	}
 
 	/* Returns the owner of the Account
 	 */
-	public String getOwner()
-	{
+	public String getOwner() {
 		return owner;
 	}
 }

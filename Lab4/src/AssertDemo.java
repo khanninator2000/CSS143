@@ -67,7 +67,7 @@ public class AssertDemo {
 		assert(denom != 0);
 	
 		//assert that all ArrayLists start empty
-		ArrayList<String> emptyList = new ArrayList<String>();
+		ArrayList<String> emptyList = new ArrayList<>();
 		assert(emptyList.size() == 0);
 		//TODO: build two more asserts that use primitives and relational operators here
 
@@ -99,7 +99,7 @@ public class AssertDemo {
 		System.out.println("Address of this :" + this);
 		System.out.println("Address of input:" + input);
 		//how many aliases for the one "new" object created in main exist in this scope? 
-		//1? 2? 3? Which are they?
+		//1? 2? 3? Which are they? 2, this and input.
 		assert(this == input);  //== does an address check for objects, which is frequently NOT what we want
 	}
 

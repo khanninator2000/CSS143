@@ -1,27 +1,58 @@
-import java.util.Optional;
+// Krish Kalai
+// CSS 143 B
+// PrivacyLeakHomework
 
 public class Bill {
     private Money amount;
     private Date dueDate;
     private Date paidDate;
     private String originator;
-
+    
+    /**
+     * Creates a Bill with the desired amount, due on the dueDate, and due to the originator.
+     *
+     * @param amount Money object of the amount to be paid.
+     * @param dueDate Date object of when the money is due.
+     * @param originator String representation of who to pay to.
+     */
     public Bill(Money amount, Date dueDate, String originator) {
-        this.amount = amount;
-        this.dueDate = dueDate;
-        this.paidDate = null;
-        this.originator = originator;
+        this(amount, dueDate, originator, null);
     }
-
+    
+    /**
+     * Creates a deep copy of the bill.
+     *
+     * @param copy Bill to copy.
+     */
     public Bill(Bill copy) {
         this(copy.amount, copy.dueDate, copy.originator);
-        this.dueDate = copy.dueDate;
+        if (copy.paidDate != null) {
+            this.paidDate = copy.paidDate;
+        }
     }
-
+    
+    /**
+     * Constructor to do the initial setting.
+     */
+    private Bill(Money amount, Date dueDate, String originator, Date paidDate) {
+        setAmount(amount);
+        setPaid(paidDate);
+        setDueDate(dueDate);
+        setOriginator(originator);
+    }
+    
     public String getOriginator() {
         return originator;
     }
-
+    
+    public Money getAmount() {
+        return new Money(amount);
+    }
+    
+    public Date getDueDate() {
+        return new Date(dueDate);
+    }
+    
     public boolean isPaid() {
         return paidDate != null;
     }
@@ -34,11 +65,11 @@ public class Bill {
      *         This method returns true if the bill has not been paid and if the paidDate is before or on the dueDate.
      */
     public boolean setPaid(Date paidDate) {
-        if (this.paidDate != null && paidDate != null && paidDate.isAfter(dueDate)) {
-            return false;
+        if (this.paidDate == null && paidDate != null && paidDate.isAfter(dueDate)) {
+            this.paidDate = new Date(paidDate);
+            return true;
         }
-        this.paidDate = paidDate;
-        return true;
+        return false;
     }
 
     /**
@@ -48,11 +79,11 @@ public class Bill {
      * @return True if the dueDate is changed. False otherwise.
      */
     public boolean setDueDate(Date dueDate) {
-        if (isPaid()) {
-            return false;
+        if (!isPaid() && dueDate != null) {
+            this.dueDate = new Date(dueDate);
+            return true;
         }
-        this.dueDate = dueDate;
-        return true;
+        return false;
     }
 
     /**
@@ -62,15 +93,17 @@ public class Bill {
      * @return True if the change is successful.
      */
     boolean setAmount(Money amount) {
-        if (isPaid()) {
-            return false;
+        if (!isPaid() && amount != null) {
+            this.amount = new Money(amount);
+            return true;
         }
-        this.amount = amount;
-        return true;
+        return false;
     }
 
     public void setOriginator(String originator) {
-        this.originator = originator;
+        if (originator != null) {
+            this.originator = originator;
+        }
     }
 
     @Override
@@ -87,9 +120,13 @@ public class Bill {
      */
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Bill &&
-                this.originator.equals(((Bill)obj).originator) && this.dueDate.equals(((Bill)obj).dueDate) &&
-                this.paidDate.equals(((Bill)obj).paidDate) && this.amount.equals(((Bill)obj).amount);
-
+        if (obj instanceof Bill) {
+            Bill bill = (Bill)obj;
+            return this.dueDate.equals(bill.dueDate) &&
+                    (this.paidDate == null && bill.paidDate == null) || (this.paidDate != null && this.paidDate.equals(bill.paidDate)) &&
+                    this.amount.equals(bill.amount) &&
+                    this.originator.equals(bill.originator);
+        }
+        return false;
     }
 }

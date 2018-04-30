@@ -98,7 +98,7 @@ public class Bill implements Serializable, Cloneable, Comparable {
     }
 
     @Override
-    protected final Bill clone() {
+    public final Bill clone() {
         try {
             return (Bill)super.clone();
         } catch (CloneNotSupportedException x) {

@@ -1,6 +1,6 @@
 
 public class List {
-    Node head;
+    private Node head;
 
     public List() {
         this.head = null;

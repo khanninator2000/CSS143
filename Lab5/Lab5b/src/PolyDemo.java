@@ -1,4 +1,3 @@
-import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,19 +6,17 @@ import java.awt.*;
  * 
  * Author: Rob Nash
  */
-
-
 class PolyDemo extends JFrame {
 	public PolyDemo() {
-		getContentPane().add( new PolyDemoPanel() );
+		getContentPane().add(new PolyDemoPanel() );
 		//just some windowing stuff that must happen for all Frames
-		setSize( 300,300 );
-		setVisible( true );
-		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		setSize(300,300 );
+		setVisible(true );
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE );
 	}
 	
 	
-	public static void main( String args[] ) {
+	public static void main(String args[]){
 		PolyDemo myApp = new PolyDemo();
 	}
 	
@@ -32,20 +29,20 @@ class PolyDemo extends JFrame {
 		Shape[] myShapes= new Shape[20];
 		
 		public PolyDemoPanel() {
-			//Shape a = new Shape( getRandInt(), getRandInt());
-			//Shape b = new Circle( getRandInt(), getRandInt(), getRandInt() );
+			//Shape a = new Shape(getRandInt(), getRandInt());
+			//Shape b = new Circle(getRandInt(), getRandInt(), getRandInt() );
 		
 			//a = new Square(getRandInt(), getRandInt(), getRandInt(), getRandInt() );
 		
 			//a = getRandShape();
 
-			//( (Circle) b ).getRadius();
+			//((Circle) b ).getRadius();
 		
 		
 			/*********************************************************************************************************************
 			* Code for populating our myShapes changes minimally when new classes are introduced (only in getRandShape())
 			*********************************************************************************************************************/
-			for( int i = 0; i < 20; i++ ) {
+			for(int i = 0; i < 20; i++){
 				myShapes[i] =  getRandShape();
 			}
 		}
@@ -54,12 +51,12 @@ class PolyDemo extends JFrame {
 		 * Code for drawing our shapes doesn't change at all! Since we intended to take advantage of polymorphism, we coded 
 		 * this "in general" with respect to the superclass, and not specific to any subclass.
 		 *********************************************************************************************************************/
-		public void paint( Graphics g ) {
+		public void paint(Graphics g){
 			super.paint(g);  //don't remove - required for GUI widgets to draw correctly
 			/************************
 			 * Late Binding Demo
 			 ************************/
-			for( int i = 0; i < myShapes.length; i++ ){
+			for(int i = 0; i < myShapes.length; i++ ){
 				//which draw method is invoked here? There are many forms of the method (polymorphic), so which is chosen?
 				//Java has RTTI about every object, and it uses this info to choose the correct method to invoke!
 				myShapes[i].draw(g);
@@ -68,7 +65,7 @@ class PolyDemo extends JFrame {
 			
 		
 		public int getRandInt() {
-			return ( (int) ( Math.random() * 200 ) );	
+			return ((int) (Math.random() * 200));	
 		}
 		
 		public Shape getRandShape() {
@@ -79,31 +76,25 @@ class PolyDemo extends JFrame {
 			
 			/********************************
 			 * Polymorphic extensibility demo
-			 *
 			 *******************************/
 			switch((int)(Math.random() * 4)) {
 				case 0:
-                    retVal = new Spray(x,y);
-                    //new Square( x, y, getRandInt(), getRandInt() );
+                    retVal = new Square(x, y, getRandInt());
                     break;
 				case 1:
-				    retVal = new Spray(x,y);
-				    //Cube( x, y, getRandInt(), getRandInt(), getRandInt() );
+				    retVal = new ExtrudedRectangle(x, y, getRandInt(), getRandInt());
                     break;
 				case 2:
 				    retVal = new Spray(x,y);
-                    //new Cylinder( x,y, getRandInt(), getRandInt() );
                     break;
 				case 3:
-				    //retVal = new Spray(x,y);
 				    retVal = new Circle(x, y, getRandInt());
                     break;
 			}
 		
 			return retVal;
 		}
-	}	
-	
+	}
 }
 
 

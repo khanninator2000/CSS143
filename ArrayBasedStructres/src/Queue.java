@@ -2,115 +2,117 @@
 // CSS 143 B
 // ArrayBasedStructures
 
+/**
+ * Dynamic resizing array-based structure.
+ *
+ * Construction, size, and isEmpty methods are all constant time.
+ * Enqueue, and dequeue are amortized constant time.
+ * toString and equals are in linear time.
+ *
+ * This class is non-synchronous, and this class guarantees no exceptions will be thrown.
+ */
 public class Queue<T> {
     private Object[] elements;
     private int size;
-
-    private int start;
-    private int end;
-
-    private boolean loop;
-
+    
     public Queue() {
         this.elements = new Object[8];
         this.size = 0;
-
-        this.start = 0;
-        this.end = 0;
-
-        this.loop = false;
     }
-
+    
+    /**
+     * Adds an item to the end of the queue.
+     * If the item is null, then nothing will happen.
+     *
+     * @param item The item to add to the queue.
+     */
     public void enqueue(T item) {
         if (item == null) {
             return;
         }
         if (size == elements.length) {
-            resize_upwards();
-            start = 0;
-            end = size;
-            loop = false;
+            elements = java.util.Arrays.copyOf(elements, elements.length + (elements.length << 1));
         }
-        elements[end] = item;
-        end++;
-        if (end == elements.length) {
-            end %= elements.length;
-            loop = true;
-        }
-        size++;
+        elements[size++] = item;
     }
-
+    
+    /**
+     * Deletes and returns an item at the front of the queue.
+     * If the queue is empty, then return null.
+     *
+     * @return The item being deleted (at the front of the queue.
+     */
     @SuppressWarnings("unchecked")
     public T dequeue() {
         if (size == 0) {
             return null;
         }
-        T item = (T)elements[start];
-        start++;
-        if (start == elements.length) {
-            start %= elements.length;
-            loop = false;
-        }
+        T item = (T)elements[0];
+        System.arraycopy(elements, 1, elements, 0, size - 1);
         size--;
         return item;
     }
-
+    
+    /**
+     * Gets the size of the queue.
+     *
+     * @return the size of the queue, represented as an integer.
+     */
     public int size() {
         return this.size;
     }
-
+    
+    /**
+     * Checks if the ArrayList is empty.
+     *
+     * @return True if the array is empty, false otherwise
+     */
     public boolean isEmpty() {
         return this.size == 0;
     }
-
+    
     /**
-     * {@inheritDoc}
+     * Returns a String as a comma separated values of the Queue.
      */
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder("[");
-        if (!loop) {
-            for (int i = start; i < end; i++) {
-                str.append(elements[i]);
-                if (i != end - 1) {
-                    str.append(", ");
-                }
+        StringBuilder s = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            s.append(elements[i]);
+            if (i != size - 1) {
+                s.append(", ");
             }
         }
-        else {
-            for (int i = start; i < elements.length; i++) {
-                str.append(elements[i]);
-                if (i != elements.length - 1) {
-                    str.append(", ");
-                }
-            }
-            for (int i = 0; i < end; i++) {
-                str.append(", ");
-                str.append(elements[i]);
-            }
-        }
-        return str + "]";
+        s.append("]");
+        return s.toString();
     }
-
+    
+    /**
+     * Checks if two Queue are equal.
+     * Silent fails (returns false) if obj is null or not of type Queue.
+     * A ClassCastException may occur based on the impl. of the equals override of the type argument.
+     *
+     * @param obj the reference object with which to compare.
+     * @return  {@code true} if this object is the same as the obj
+     *          argument; {@code false} otherwise.
+     */
     @Override
+    @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
         if (!(obj instanceof Queue<?>)) {
             return false;
         }
-
-        Queue<?> queue = (Queue<?>)obj;
-        return this.toString().equals(queue.toString());
-    }
-
-    private void resize_upwards() {
-        Object[] temp_elements = new Object[this.elements.length << 1];
-        if (!loop) {
-            System.arraycopy(elements, start, temp_elements, 0, end - start);
+        Queue<?> other = (Queue<?>)obj;
+        
+        if (this.size != other.size) {
+            return false;
         }
-        else {
-            System.arraycopy(elements, start, temp_elements, 0, this.elements.length - start);
-            System.arraycopy(elements, 0, temp_elements, start+1, end);
+        
+        for (int i = 0; i < this.size; i++) {
+            if (!this.elements[i].equals(other.elements[i])) {
+                return false;
+            }
         }
-        this.elements = temp_elements;
+        return true;
     }
 }

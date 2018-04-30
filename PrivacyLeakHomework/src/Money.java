@@ -1,34 +1,30 @@
+// Krish Kalai
+// CSS 143 B
+// PrivacyLeakHomework
+
 /**
  * Class to hold Money in USD.
  */
 public class Money {
     private int dollars;
-
-    /**
-     * An integer between 0 and 99. If this value exceeds 99, the (integer) quotient is added to dollars and the
-     * modulo to 100 is saved.
-     */
     private int cents;
 
     public Money() {
-        this.dollars = 0;
-        this.cents = 0;
+        this(0,0);
     }
-
+    
     public Money(int dollars) {
-        this.dollars = dollars;
-        this.cents = 0;
+        this(dollars, 0);
     }
-
+    
+    public Money(Money money) {
+        this(money.dollars, money.cents);
+    }
+    
     public Money(int dollars, int cents) {
         setMoney(dollars, cents);
     }
-
-    public Money(Money money) {
-        this.dollars = money.dollars;
-        this.cents = money.cents;
-    }
-
+    
     public int getDollars() {
         return dollars;
     }
@@ -38,19 +34,21 @@ public class Money {
     }
 
     public void setMoney(int dollars, int cents) {
+        requireInvariant(dollars, cents);
         this.dollars = dollars + cents/100;
         this.cents = cents % 100;
     }
 
     public double getMoney() {
-        return dollars + (cents/100.);
+        return dollars + (cents/100f);
     }
 
     public void add(int dollars) {
-        this.dollars += dollars;
+        add(dollars, 0);
     }
 
     public void add(int dollars, int cents) {
+        requireInvariant(dollars, cents);
         this.dollars += dollars + (this.cents + cents) / 100;
         this.cents = (this.cents + cents) % 100;
     }
@@ -58,10 +56,20 @@ public class Money {
     public void add(Money money) {
         add(money.dollars, money.cents);
     }
-
+    
+    private void requireInvariant(int dollars, int cents) {
+        if (dollars < 0 || cents < 0) {
+            throw new IllegalArgumentException("A value is negative");
+        }
+    }
+    
     @Override
-    public boolean equals(Object oth) {
-        return oth instanceof Money && this.dollars == ((Money) oth).dollars && this.cents == ((Money) oth).cents;
+    public boolean equals(Object obj) {
+        if (obj instanceof Money) {
+            Money money = (Money)obj;
+            return this.dollars == money.dollars && this.cents == money.cents;
+        }
+        return false;
     }
 
     @Override

@@ -12,7 +12,7 @@ public class ColorWithAlpha extends SimpleColor {
     }
 
     public ColorWithAlpha(ColorWithAlpha color) {
-        super(color.getR(), color.getG(), color.getB());
+        this(color.getR(), color.getG(), color.getB(), color.getAlpha());
     }
 
     public int getAlpha() {
@@ -33,7 +33,12 @@ public class ColorWithAlpha extends SimpleColor {
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null && obj instanceof ColorWithAlpha && super.equals(obj) &&
-                this.alpha == ((ColorWithAlpha) obj).alpha;
+        return (obj instanceof ColorWithAlpha && super.equals(obj) && this.alpha == ((ColorWithAlpha) obj).alpha) ||
+               (obj instanceof SimpleColor && super.equals(obj));
     }
 }
+
+/*
+ * 9.a. What does the following call to super do?
+ * > Calls the toString() in the superclass (SimpleColor).
+ */

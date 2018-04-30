@@ -2,45 +2,43 @@
 // CSS 143 B
 // ArrayBasedStructures
 
+/**
+ * Dynamic resizing array-based structure.
+ *
+ * Construction, get, size, and isEmpty methods are all constant time.
+ * Insert, removal, toString and equals are done in amortized linear time.
+ *
+ * This class is non-synchronous, and this class guarantees no exceptions will be thrown.
+ */
 public class ArrayList<T> {
     private Object[] elements;
     private int size;
 
     /**
-     * Constructs an ObjectList of 8 elements.
+     * Constructs an ArrayList. The base size is set to 8 elements, but is resizeable.
      */
     public ArrayList() {
         elements = new Object[8];
         size = 0;
     }
-
-    /**
-     * Add an Object to the next available spot to the array. If no elements are available, then the array will resize.
-     *
-     * @param item The item to add to the ObjectList.
-     */
-    public void add(T item) {
-        if (item == null) {
-            return;
-        }
-        if (size == elements.length) {
-            resize_upward();
-        }
-        elements[size++] = item;
-    }
-
+    
     /**
      * Inserts an item at a specified location.
+     * If needed, this method resize the array by 150%.
      *
-     * @param item The Object to insert
+     * If {@code index < 0 || index > size}, this method silent-fails
+     * and does make any changes.
+     *
+     * @param item The Object to insert. If this is null, then this is not added.
      * @param index The position to insert item.
+     *              If this is less than 0 or greater than size, then item is not added.
      */
     public void insert(T item, int index) {
-        if (index > size || item == null) {
+        if (index < 0 || index > size || item == null) {
             return;
         }
         if (size == elements.length) {
-            resize_upward();
+            elements = java.util.Arrays.copyOf(elements, elements.length + (elements.length >> 1));
         }
         System.arraycopy(elements, index, elements, index + 1, elements.length - 1 - index);
         elements[index] = item;
@@ -49,32 +47,26 @@ public class ArrayList<T> {
 
     /**
      * Deletes an item at the specified index.
+     *
      * The right elements of the array are copied one space over
      * to prevent complexity from blank elements.
+     *
+     * If 0 > index > size or if ArrayList.isEmpty() is true,
+     * then this method silent-fails and returns null.
      *
      * @param index The index of the array to delete.
      */
     @SuppressWarnings("unchecked")
     public T remove(int index) {
-        if (index > size) {
-            throw new IndexOutOfBoundsException();
+        if (index >= size) {
+            return null;
         }
         T data = (T)elements[index];
         size--;
         System.arraycopy(elements, index+1, elements, index, size - index);
         return data;
     }
-
-    /**
-     * This method is called if the array is out of space.
-     * A new array of length + (150% * length) is created.
-     */
-    private void resize_upward() {
-        Object[] temp_elements = new Object[elements.length + (elements.length >> 1)];
-        System.arraycopy(elements, 0, temp_elements, 0, elements.length);
-        elements = temp_elements;
-    }
-
+    
     /**
      * Gets the object at the specified index.
      *
@@ -84,7 +76,9 @@ public class ArrayList<T> {
      */
     @SuppressWarnings("unchecked")
     public T get(int index) {
-        assert index < size : "Out of bounds";
+        if (index < 0 || index > size) {
+            return null;
+        }
         return (T)elements[index];
     }
 
@@ -97,13 +91,18 @@ public class ArrayList<T> {
     public int size() {
         return size;
     }
-
+    
+    /**
+     * Checks if the ArrayList is empty.
+     *
+     * @return True if the array is empty, false otherwise
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
     /**
-     * Returns a String as a comma separated values of the List.
+     * Returns a String as a comma separated values of the ArrayList.
      */
     @Override
     public String toString() {
@@ -117,11 +116,20 @@ public class ArrayList<T> {
         s.append("]");
         return s.toString();
     }
-
+    
+    /**
+     * Checks if two ArrayLists are equal.
+     * Silent fails (returns false) if obj is null or not of type ArrayList.
+     * A ClassCastException may occur based on the impl. of the equals override of the type argument.
+     *
+     * @param obj the reference object with which to compare.
+     * @return  {@code true} if this object is the same as the obj
+     *          argument; {@code false} otherwise.
+     */
     @Override
     @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
-        if (!(obj instanceof ArrayList)) {
+        if (!(obj instanceof ArrayList<?>)) {
             return false;
         }
         ArrayList<T> other = (ArrayList<T>)obj;

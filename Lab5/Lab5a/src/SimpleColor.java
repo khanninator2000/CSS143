@@ -22,7 +22,7 @@ public class SimpleColor {
 	}
 
 	public void setR(int r) {
-		if (r < 0 || r > 255) {
+		if (r < 0 ^ r > 255) {
 			throw new ColorException("Problem with red");
 		}
 		this.r = r;
@@ -33,7 +33,7 @@ public class SimpleColor {
 	}
 
 	public void setG(int g) {
-		if (g < 0 || g > 255) {
+		if (g < 0 ^ g > 255) {
 			throw new ColorException("Problem with green");
 		}
 		this.g = g;
@@ -44,7 +44,7 @@ public class SimpleColor {
 	}
 
 	public void setB(int b) {
-		if (b < 0 || b > 255) {
+		if (b < 0 ^ b > 255) {
 			throw new ColorException("Problem with blue");
 		}
 		this.b = b;
