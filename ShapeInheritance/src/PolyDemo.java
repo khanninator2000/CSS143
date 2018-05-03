@@ -25,7 +25,7 @@ class PolyDemo extends JFrame {
     
     
     public static void main(String args[]) {
-        PolyDemo myApp = new PolyDemo();
+        new PolyDemo();
     }
     
     
@@ -34,12 +34,12 @@ class PolyDemo extends JFrame {
     //I can indicate the intent a bit more clearly that this class "goes with" the class above it
     //In general, each class is a separate entity that should be contained in a separate file
     public class PolyDemoPanel extends JPanel {
-        final int num = 20;
-        Shape[] myShapes = new Shape[num];
+        Shape[] myShapes = new Shape[20];
         
         public PolyDemoPanel() {
+            setBackground(new Color(0xAA_AA_AA));
             setSize(PolyDemo.this.getWidth(), PolyDemo.this.getHeight());
-            for (int i = 0; i < num; i++) {
+            for (int i = 0; i < myShapes.length; i++) {
                 myShapes[i] = getRandShape();
             }
         }
@@ -52,35 +52,31 @@ class PolyDemo extends JFrame {
             }
         }
         
-        public int getRandInt(int bound) {
-            return (int)(random() * bound);
+        public int getRandInt(int bound, int increment) {
+            return (int)(random() * bound) + increment;
         }
         
         public Shape getRandShape() {
             Shape retVal = null;
-            final int x = getRandInt(getSize().width);
-            final int y = getRandInt(getSize().height);
-            
-            int size = (int)(Math.random() * 250);
+            final int x = getRandInt(getSize().width, 0);
+            final int y = getRandInt(getSize().height, 0);
             /********************************
              * Polymorphic extensibility demo
              *******************************/
             switch ((int)(random() * 4)) {
                 case 0:
-                    //retVal = new Square(x, y, getRandInt(300), getRandInt(0xFFFFFF));
-                    retVal = new PokeBall(x, y, size);
+                    retVal = new Square(x, y, getRandInt(300, 0),
+                                              getRandInt(0xFFFFFF, 0));
                     break;
                 case 1:
-//                    retVal = new Circle(x, y, (Math.random() * 91) + 10);
-                    retVal = new PokeBall(x, y, size);
+                    retVal = new Cylinder(x, y, 50, 50, Color.green);
                     break;
                 case 2:
-//                    retVal = new Polygon((int) (random() * 200), (int) (random() * 200), (int)(random() * 100), (int)(random() * 0xFF_FF_FF), (int)(random() * 10) + 3);
-                    retVal = new PokeBall(x, y, size);
+                    retVal = new Polygon((int) (random() * 200), (int) (random() * 200), (int)(random() * 100),
+                                         (int)(random() * 0xFF_FF_FF), (int)(random() * 10) + 3);
                     break;
                 case 3:
-//                    retVal = new SemiCircle(x, y, (Math.random() * 91) + 10, Math.random() * 2 * PI);
-                    retVal = new PokeBall(x, y, size);
+                    retVal = new PokeBall(x, y, (int)(Math.random() * 91) + 10);
                     break;
             }
             

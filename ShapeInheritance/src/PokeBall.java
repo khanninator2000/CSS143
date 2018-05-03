@@ -1,11 +1,18 @@
 import java.awt.*;
 
+import static java.lang.Math.PI;
+
 public class PokeBall extends Shape {
     private int size;
     
     public PokeBall(int x, int y, int size) {
         super(x, y);
         this.size = size;
+    }
+    
+    @Override
+    public double getArea() {
+        return 4 * PI * size * size;
     }
     
     @Override
