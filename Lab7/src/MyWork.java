@@ -1,15 +1,19 @@
+import java.io.File;
+
 public class MyWork {
     public static void main(String[] args) {
-        final int exp = 16;
-        
-        //System.out.println(factorial(10));
-        System.out.println(power(2, exp));
-        System.out.println(power_fast(2, exp));
+//        final int exp = 16;
+//
+//        //System.out.println(factorial(10));
+//        System.out.println(power(2, exp));
+//        System.out.println(power_fast(2, exp));
+//
+//        for (int i = 0; i < exp; i++) {
+//            System.out.print(fibonacci(i) + " ");
+//        }
+//        System.out.println();
     
-        for (int i = 0; i < exp; i++) {
-            System.out.print(fibonacci(i) + " ");
-        }
-        System.out.println();
+        System.out.println(directory_search("cats.txt", "/Users/krishkalai/Desktop"));
     }
     
     public static int factorial(int input) {
@@ -51,4 +55,53 @@ public class MyWork {
         return factorial(n) / (factorial(r) - factorial(n - r));
     }
     
+    public static String directory_search(String target, String dir_name) {
+        File current_file = new File(dir_name);
+        if (!current_file.exists()) {
+            throw new IllegalArgumentException("Invalid Directory");
+        }
+        
+        String[] file_list = current_file.list();
+        if (file_list == null) {
+            return null;
+        }
+        for (String file : file_list) {
+            File next = new File(current_file + "/" + file);
+            
+            if (next.isDirectory()) {
+                directory_search(target, next.getAbsolutePath());
+            }
+            else {
+                if (file.equals(target)) {
+                    return next.getAbsolutePath();
+                }
+            }
+        }
+        return null;
+    }
 }
+
+/*
+ * (2) MyWork::power
+ * f(x) = 3N + 2
+ * g(x) = 3N + 2N, for N > 1
+ *
+ * (3) MyWork::power_fast
+ * f(x) = 3log_2(N)+2
+ * g(x) = 3log_2(N)+2log_2(N), for N > 1
+ */
+
+/*
+ * if not valid path and directory:
+ *     perform failure operation
+ * for each item in cd:
+ *     if item is -d:
+ *         append to absolute path
+ *         recurse
+ *     else:
+ *         if local path matches target filename:
+ *             perform success operation
+ *         endif
+ *     endif
+ * endloop
+ */

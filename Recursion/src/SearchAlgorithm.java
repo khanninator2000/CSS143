@@ -15,7 +15,7 @@ public abstract class SearchAlgorithm {
 	 * 
 	 */
 	public abstract int search(String[] words, String wordToFind) throws ItemNotFoundException;
-	public abstract int recSearch(String[] words, String wordToFind) throws ItemNotFoundException;
+        public abstract int recSearch(String[] words, String wordToFind) throws ItemNotFoundException;
 
 	/**
 	 * Utility Features: This class can be used to track the number of search comparisons

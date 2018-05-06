@@ -1,8 +1,6 @@
-import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 
-import static java.lang.Math.PI;
 import static java.lang.Math.random;
 
 /*
@@ -10,8 +8,6 @@ import static java.lang.Math.random;
  * 
  * Author: Rob Nash
  */
-
-
 class PolyDemo extends JFrame {
     
     
@@ -34,7 +30,7 @@ class PolyDemo extends JFrame {
     //I can indicate the intent a bit more clearly that this class "goes with" the class above it
     //In general, each class is a separate entity that should be contained in a separate file
     public class PolyDemoPanel extends JPanel {
-        Shape[] myShapes = new Shape[20];
+        Shape[] myShapes = new Shape[1];
         
         public PolyDemoPanel() {
             setBackground(new Color(0xAA_AA_AA));
@@ -46,9 +42,9 @@ class PolyDemo extends JFrame {
         
         public void paint(Graphics g) {
             super.paint(g);
-            
-            for (int i = 0; i < myShapes.length; i++) {
-                myShapes[i].draw(g);
+    
+            for (Shape myShape : myShapes) {
+                myShape.draw(g);
             }
         }
         
@@ -60,19 +56,19 @@ class PolyDemo extends JFrame {
             Shape retVal = null;
             final int x = getRandInt(getSize().width, 0);
             final int y = getRandInt(getSize().height, 0);
-            /********************************
+            /* *******************************
              * Polymorphic extensibility demo
-             *******************************/
+             ****************************** */
             switch ((int)(random() * 4)) {
                 case 0:
-                    retVal = new Square(x, y, getRandInt(300, 0),
-                                              getRandInt(0xFFFFFF, 0));
+                    retVal = new Parallelogram(x, y, getRandInt(300, 0),
+                                              getRandInt(300, 0), getRandInt(0xFFFFFF, 0));
                     break;
                 case 1:
                     retVal = new Cylinder(x, y, 50, 50, Color.green);
                     break;
                 case 2:
-                    retVal = new Polygon((int) (random() * 200), (int) (random() * 200), (int)(random() * 100),
+                    retVal = new Polygon((int)(random() * 200), (int) (random() * 200), (int)(random() * 100),
                                          (int)(random() * 0xFF_FF_FF), (int)(random() * 10) + 3);
                     break;
                 case 3:
@@ -80,10 +76,12 @@ class PolyDemo extends JFrame {
                     break;
             }
             
-            return retVal;
+            //return retVal;
+            return new PokeBall(20, 10, 250);
+            //return new Polygon(150, 150, 120, getRandInt(0xFFFFFF, 0), getRandInt(7, 3));
+            //return new Parallelogram(10, 10, 150, 150, getRandInt(0xFFFFFF, 0));
         }
     }
-    
 }
 
 

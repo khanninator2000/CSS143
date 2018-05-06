@@ -1,8 +1,8 @@
 import java.awt.*;
 
 public class FractalFlake extends Shape {
-    private final int limit = 20;
-    private final int branches = 10;
+    private final int limit = 90;
+    private final int branches = 6;
     
     private int size;
     

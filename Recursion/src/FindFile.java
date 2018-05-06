@@ -1,24 +1,47 @@
+// Krish Kalai
+// CSS 143 B
+// Recursion
+
 import java.io.File;
 import java.util.Arrays;
+import java.util.Objects;
 
+/**
+ * Class to search for all (or up to {@code count}) instances (local paths) of a file.
+ */
 public class FindFile {
-    private int max_files;
+    /**
+     * Number of files found.
+     */
     private int count;
+    
+    /**
+     * Array of absolute paths of a file.
+     */
     private String[] files;
-
+    
+    /**
+     * Constructor for this class
+     *
+     * @param max_files Maximum number of files to be stored.
+     */
     public FindFile(int max_files) {
-
-        this.max_files = max_files;
         this.count = 0;
         this.files = new String[max_files];
     }
-
-    public void directory_search(String target, String dir_name) {
+    
+    /**
+     * Recursive directory search method.
+     *
+     * @param target The target file to give (should be a local path)
+     * @param dir_name The absolute path of the start (root)
+     */
+    public void directorySearch(String target, String dir_name) {
         File current_file = new File(dir_name);
         if (!current_file.exists()) {
             throw new IllegalArgumentException("Invalid Directory");
         }
-
+        
         String[] file_list = current_file.list();
         if (file_list == null) {
             return;
@@ -26,20 +49,17 @@ public class FindFile {
         for (String file : file_list) {
             File next = new File(current_file + "/" + file);
             if (next.isDirectory()) {
-                directory_search(target, next.getAbsolutePath());
+                directorySearch(target, next.getAbsolutePath());
             }
             else {
                 if (file.equals(target)) {
-                    if (count > max_files) {
-                        throw new ArrayIndexOutOfBoundsException("File count exceeds maximum amount of files.");
-                    }
                     files[count++] = next.getAbsolutePath();
                 }
             }
         }
     }
 
-    public long getCount() {
+    public int getCount() {
         return count;
     }
 
@@ -48,12 +68,13 @@ public class FindFile {
     }
 
     public static void main(String[] $) {
-        FindFile f = new FindFile(10000);
+        FindFile f = new FindFile(3);
         try {
-            f.directory_search("robots.txt", "/Users/krishkalai");
-            System.out.println(Arrays.toString(f.getFiles()));
+            f.directorySearch("robots.txt", "/Users/krishkalai/Desktop");
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        
         } finally {
-            System.out.println("");
+            Arrays.stream(f.getFiles()).filter(Objects::nonNull).forEach(System.out::println);
         }
     }
 }

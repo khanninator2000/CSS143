@@ -1,6 +1,9 @@
+// Krish Kalai
+// CSS 143 B
+// Recursion
+
 /**
- * A class that implements Binary Search to find a value in an array.
- *
+ * A class that implements binary search to find a value in an array.
  */
 public class BinarySearch extends SearchAlgorithm {
     /**
@@ -8,7 +11,7 @@ public class BinarySearch extends SearchAlgorithm {
      *
      * @param words The List of words to search from.
      * @param wordToFind The word to find in words.
-     * @return The index of the element.
+     * @return The index of the element, if it exists.
      * @throws ItemNotFoundException If wordToFind is not present in words.
      */
     @Override
@@ -31,43 +34,39 @@ public class BinarySearch extends SearchAlgorithm {
                 left_index = middle + 1;
             }
         }
-        throw new ItemNotFoundException("Item not found");
+        throw new ItemNotFoundException();
     }
-
+    
+    /**
+     * Recursive binary search.
+     *
+     * @param words The array of words to search through.
+     * @param wordToFind The word to find.
+     * @return The index of the item, if it exists.
+     * @throws ItemNotFoundException If wordToFind is not present in words.
+     */
     @Override
     public int recSearch(String[] words, String wordToFind) throws ItemNotFoundException {
         return recSearch(words, wordToFind, 0, words.length);
     }
-
-    public int recSearch(String[] words, String wordToFind, int left, int right) throws ItemNotFoundException {
+    
+    /**
+     * Helper function for the recursion call.
+     *
+     * @param words The array of words to search through.
+     * @param wordToFind The word to find.
+     * @param left The left bound.
+     * @param right The right bound.
+     * @return The index of the item, if it exists.
+     * @throws ItemNotFoundException If wordToFind is not present in words.
+     */
+    private int recSearch(String[] words, String wordToFind, int left, int right) throws ItemNotFoundException {
         if (left > right) {
-            throw new ItemNotFoundException("Item not found.");
+            throw new ItemNotFoundException();
         }
-
-        int middle = (left + right) / 2;
-        if (words[middle].compareTo(wordToFind) == 0) {
-            return middle;
-        }
-
+        int middle = (left + right) >>> 1;
         incrementCount();
-        if (words[middle].compareTo(wordToFind) > 0) {
-            return recSearch(words, wordToFind, left, middle - 1);
-        }
-        else {
-            return recSearch(words, wordToFind, middle + 1, right);
-        }
-    }
-
-    public int recSearchNO(String[] words, String wordToFind) throws ItemNotFoundException {
-        return recSearchNO(words, wordToFind, 0, words.length);
-    }
-
-    public int recSearchNO(String[] words, String wordToFind, int left, int right) throws ItemNotFoundException {
-        if (left > right) {
-            throw new ItemNotFoundException("Item not found.");
-        }
-        int middle = (left + right) / 2;
         return words[middle].compareTo(wordToFind) < 0 ? recSearch(words, wordToFind, middle + 1, right) :
-                words[middle].compareTo(wordToFind) > 0 ? recSearch(words, wordToFind, left, middle - 1) : middle;
+               words[middle].compareTo(wordToFind) > 0 ? recSearch(words, wordToFind, left, middle - 1) : middle;
     }
 }

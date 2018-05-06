@@ -26,7 +26,7 @@ class PolyDemo extends JFrame {
 	//I can indicate the intent a bit more clearly that this class "goes with" the class above it
 	//In general, each class is a separate entity that should be contained in a separate file
 	public class PolyDemoPanel extends JPanel {
-        Shape[] myShapes = new Shape[100];
+        Shape[] myShapes = new Shape[1];
         
         public PolyDemoPanel() {
             //Shape a = new Shape(getRandInt(), getRandInt());
@@ -42,8 +42,8 @@ class PolyDemo extends JFrame {
             /*********************************************************************************************************************
              * Code for populating our myShapes changes minimally when new classes are introduced (only in getRandShape())
              *********************************************************************************************************************/
-            for (int i = 0; i < 100; i++) {
-                myShapes[i] = getRandShape();
+            for (int i = 0; i < myShapes.length; i++) {
+                myShapes[i] = new FractalFlake(getRandInt(200), getRandInt(200), getRandInt(50) + 10);
             }
         }
         
@@ -76,20 +76,6 @@ class PolyDemo extends JFrame {
             /********************************
              * Polymorphic extensibility demo
              *******************************/
-            switch ((int) (Math.random() * 4)) {
-                case 0:
-                    retVal = new FractalFlake(x, y, getRandInt(50) + 10);
-                    break;
-                case 1:
-                    retVal = new FractalFlake(x, y, getRandInt(50) + 10);
-                    break;
-                case 2:
-                    retVal = new FractalFlake(x, y, getRandInt(50) + 10);
-                    break;
-                case 3:
-                    retVal = new FractalFlake(x, y, getRandInt(50) + 10);
-                    break;
-            }
             
             return retVal;
         }
