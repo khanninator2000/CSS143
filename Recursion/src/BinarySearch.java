@@ -18,15 +18,13 @@ public class BinarySearch extends SearchAlgorithm {
     public int search(String[] words, String wordToFind) throws ItemNotFoundException {
         int left_index = 0;
         int right_index = words.length - 1;
-        int middle;
         while (left_index <= right_index) {
-            middle = (left_index + right_index) / 2;
+            int middle = (left_index + right_index) >>> 1;
             incrementCount();
 
             if (words[middle].equals(wordToFind)) {
                 return middle;
             }
-
             if (words[middle].compareTo(wordToFind) > 0) {
                 right_index = middle - 1;
             }

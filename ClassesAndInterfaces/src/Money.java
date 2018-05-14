@@ -1,26 +1,26 @@
-import java.io.Serializable;
+// Krish Kalai
+// CSS 143 B
+// PrivacyLeakHomework
 
 /**
- * Class to hold money, counted as USD currency.
+ * Class to hold Money in USD.
  */
-public class Money implements Comparable, Cloneable, Serializable {
+public class Money implements Comparable<Money>, Cloneable, java.io.Serializable {
     private int dollars;
     private int cents;
 
     public Money() {
-        this.dollars = 0;
-        this.cents = 0;
+        this(0,0);
     }
-
+    
     public Money(int dollars) {
-        this.dollars = dollars;
-        this.cents = 0;
+        this(dollars, 0);
     }
-
+    
     public Money(int dollars, int cents) {
         setMoney(dollars, cents);
     }
-
+    
     public int getDollars() {
         return dollars;
     }
@@ -30,19 +30,21 @@ public class Money implements Comparable, Cloneable, Serializable {
     }
 
     public void setMoney(int dollars, int cents) {
+        requireInvariant(dollars, cents);
         this.dollars = dollars + cents/100;
         this.cents = cents % 100;
     }
 
     public double getMoney() {
-        return dollars + (cents/100.);
+        return dollars + (cents/100f);
     }
 
     public void add(int dollars) {
-        this.dollars += dollars;
+        add(dollars, 0);
     }
 
     public void add(int dollars, int cents) {
+        requireInvariant(dollars, cents);
         this.dollars += dollars + (this.cents + cents) / 100;
         this.cents = (this.cents + cents) % 100;
     }
@@ -50,51 +52,44 @@ public class Money implements Comparable, Cloneable, Serializable {
     public void add(Money money) {
         add(money.dollars, money.cents);
     }
-
-    /**
-     * {@inheritDoc}
-     */
+    
+    private void requireInvariant(int dollars, int cents) {
+        if (dollars < 0 || cents < 0) {
+            throw new IllegalArgumentException("A value is negative");
+        }
+    }
+    
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Money)) {
-            return false;
+        if (obj instanceof Money) {
+            Money money = (Money)obj;
+            return this.dollars == money.dollars && this.cents == money.cents;
         }
-        Money money = (Money)obj;
-        return this.dollars == money.dollars && this.cents == money.cents;
+        return false;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "$" + String.format("%.2f", getMoney());
     }
-
+    
     /**
-     * {@inheritDoc}
+     * Returns the difference times 100.
+     *
+     * @param o The NotNull Money object to compare to.
+     * @return the difference of this and {@code o} times 100.
      */
     @Override
-    public int compareTo(Object o) {
-        if (o instanceof Money) {
-            return Double.compare(getMoney(), ((Money)o).getMoney());
-        }
-        throw new ClassCastException(o.getClass() + "cannot be casted to" + getClass());
+    public int compareTo(Money o) {
+        return (this.dollars * 100 + this.cents) - (o.dollars * 100 + o.cents);
     }
-
-    /**
-     * {@inheritDoc}
-     */
+    
     @Override
-    public final Money clone() {
+    public Money clone() {
         try {
-            Money money = (Money) super.clone();
-            money.setMoney(this.dollars, this.cents);
-            return money;
+            return (Money)(super.clone());
         } catch (CloneNotSupportedException x) {
-            return null;
+            throw new InternalError("Clone operation failed.");
         }
     }
 }
-
-

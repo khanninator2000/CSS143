@@ -2,18 +2,21 @@ import java.io.File;
 
 public class MyWork {
     public static void main(String[] args) {
-//        final int exp = 16;
-//
-//        //System.out.println(factorial(10));
-//        System.out.println(power(2, exp));
-//        System.out.println(power_fast(2, exp));
-//
-//        for (int i = 0; i < exp; i++) {
-//            System.out.print(fibonacci(i) + " ");
-//        }
-//        System.out.println();
+        final int exp = 32;
+
+        System.out.println(factorial(10));
+        
+        System.out.println(power(2, exp));
+        System.out.println(power_fast(2, exp));
     
-        System.out.println(directory_search("cats.txt", "/Users/krishkalai/Desktop"));
+        System.out.println(combination(6, 1));
+        
+        for (int i = 0; i < exp; i++) {
+            System.out.print(fibonacci(i) + " ");
+        }
+        System.out.println();
+    
+        System.out.println(directory_search("kit.kat", "/Users/krishkalai/Desktop"));
     }
     
     public static int factorial(int input) {
@@ -58,7 +61,7 @@ public class MyWork {
     public static String directory_search(String target, String dir_name) {
         File current_file = new File(dir_name);
         if (!current_file.exists()) {
-            throw new IllegalArgumentException("Invalid Directory");
+            return null;
         }
         
         String[] file_list = current_file.list();
@@ -69,7 +72,10 @@ public class MyWork {
             File next = new File(current_file + "/" + file);
             
             if (next.isDirectory()) {
-                directory_search(target, next.getAbsolutePath());
+                String ans = directory_search(target, next.getAbsolutePath());
+                if (ans != null) {
+                    return ans;
+                }
             }
             else {
                 if (file.equals(target)) {

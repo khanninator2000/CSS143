@@ -24,15 +24,21 @@ public class BinSearchDriver {
 	
 	//Note how we deal with Java's Catch-or-Declare rule here by declaring the exceptions we might throw
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner input = new Scanner(new File(FILE_AND_PATH));
+	    //Scanner input = new Scanner(new File(FILE_AND_PATH));
 		int wordCount = 0;
 		ArrayList<String> theWords = new ArrayList<String>();
-		
-		//read in words, count them
-		while(input.hasNext())  {
-			theWords.add( input.next() );
-			wordCount++;
-		}
+        
+        try(Scanner in = new Scanner(new File(FILE_AND_PATH))) {
+            while(in.hasNext())  {
+                theWords.add(in.next());
+                wordCount++;
+            }
+        }
+//		//read in words, count them
+//		while(input.hasNext())  {
+//			theWords.add( input.next() );
+//			wordCount++;
+//		}
 
 		//make a standard array from an ArrayList
 		String[] wordsToSearch = new String[theWords.size()];
@@ -49,6 +55,7 @@ public class BinSearchDriver {
 		tryBinarySearch(wordsToSearch, "TRANSURANIUM");
 		tryBinarySearch(wordsToSearch, "HEURISTICALLY");
 		tryBinarySearch(wordsToSearch, "FOO");
+  
 		
 	}
 
@@ -62,8 +69,8 @@ public class BinSearchDriver {
 		SearchAlgorithm bs = new BinarySearch();
 		
 		try {
-//			System.out.print( target + " found at index: " + bs.search(wordsToSearch,target));
-            System.out.print( target + " found at index: " + bs.recSearch(wordsToSearch,target));
+			System.out.print( target + " found at index: " + bs.search(wordsToSearch,target));
+//            System.out.print( target + " found at index: " + bs.recSearch(wordsToSearch,target));
 			System.out.println( " taking " + bs.getCount() + " comparisons.");
 		} 
 		catch( ItemNotFoundException e ) {

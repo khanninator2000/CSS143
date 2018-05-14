@@ -8,9 +8,9 @@ import java.util.function.Consumer;
 /**
  * ArrayList-like class to store data in a dynamic resizing list.
  */
-public class ArrayList<T> implements Iterable<T>{
-    private Object[] elements;
-    private int size;
+public class ArrayList<T> implements Iterable<T> {
+    protected Object[] elements;
+    protected int size;
 
     /**
      * Constructs an ObjectList of 8 elements.
@@ -69,7 +69,7 @@ public class ArrayList<T> implements Iterable<T>{
     /**
      * This method is called if the array is out of space. A new array of current_length * 150% is created.
      */
-    private void resize_upward() {
+    protected void resize_upward() {
         Object[] temp_elements = new Object[elements.length + (elements.length >> 1)];
         System.arraycopy(elements, 0, temp_elements, 0, elements.length);
         elements = temp_elements;
@@ -136,9 +136,13 @@ public class ArrayList<T> implements Iterable<T>{
      * Iterator class to iterate through the ArrayList.
      * The iterator will start from index 0, up to index {@code size}.
      */
-    private class ArrayListIterator implements Iterator {
-        private int current_index = 0;
+    protected class ArrayListIterator<I extends T> implements Iterator<I> {
+        private int current_index;
 
+        ArrayListIterator() {
+            this.current_index = 0;
+        }
+        
         /**
          * Checks if there is another accessible element in the Array.
          */
@@ -152,8 +156,9 @@ public class ArrayList<T> implements Iterable<T>{
          * given that {@code Iterator::hasNext} is true.
          */
         @Override
-        public Object next() {
-            return elements[current_index++];
+        @SuppressWarnings("unchecked")
+        public I next() {
+            return (I) elements[current_index++];
         }
     }
 }

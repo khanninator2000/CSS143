@@ -33,28 +33,19 @@ public class FindFile {
     /**
      * Recursive directory search method.
      *
-     * @param target The target file to give (should be a local path)
+     * @param target The target file to give (should be a filename)
      * @param dir_name The absolute path of the start (root)
      */
     public void directorySearch(String target, String dir_name) {
         File current_file = new File(dir_name);
-        if (!current_file.exists()) {
-            throw new IllegalArgumentException("Invalid Directory");
-        }
         
-        String[] file_list = current_file.list();
-        if (file_list == null) {
-            return;
-        }
-        for (String file : file_list) {
+        for (String file : Objects.requireNonNull(current_file.list())) {
             File next = new File(current_file + "/" + file);
             if (next.isDirectory()) {
                 directorySearch(target, next.getAbsolutePath());
             }
-            else {
-                if (file.equals(target)) {
-                    files[count++] = next.getAbsolutePath();
-                }
+            else if (file.equals(target)) {
+                files[count++] = next.getAbsolutePath();
             }
         }
     }
@@ -65,16 +56,5 @@ public class FindFile {
 
     public String[] getFiles() {
         return files;
-    }
-
-    public static void main(String[] $) {
-        FindFile f = new FindFile(3);
-        try {
-            f.directorySearch("robots.txt", "/Users/krishkalai/Desktop");
-        } catch (ArrayIndexOutOfBoundsException ignored) {
-        
-        } finally {
-            Arrays.stream(f.getFiles()).filter(Objects::nonNull).forEach(System.out::println);
-        }
     }
 }

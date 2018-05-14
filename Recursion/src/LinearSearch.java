@@ -10,27 +10,25 @@ public class LinearSearch extends SearchAlgorithm {
      * Iterative linear search.
      *
      * @param words The array of words to search through.
-     * @param wordToFind The word to find in {@code words}.
-     * @return The index of the element, if it exists.
+     * @param wordToFind The word to find in words.
+     * @return The index of the item, if it exists.
      * @throws ItemNotFoundException If wordToFind is not present in words.
      */
     @Override
     public int search(String[] words, String wordToFind) throws ItemNotFoundException {
         int index = 0;
-        for (; index < words.length && !(words[index].equalsIgnoreCase(wordToFind)); incrementCount(), index++);
+        for (incrementCount(); index < words.length && !(words[index].equalsIgnoreCase(wordToFind)); incrementCount(), index++);
         if (index < words.length) {
             return index;
         }
-        else {
-            throw new ItemNotFoundException();
-        }
+        throw new ItemNotFoundException();
     }
     
     /**
      * Recursive linear search.
      *
      * @param words The array of words to search through.
-     * @param wordToFind The word to find.
+     * @param wordToFind The word to find in words.
      * @return The index of the item, if it exists.
      * @throws ItemNotFoundException If wordToFind is not present in words.
      */
@@ -40,7 +38,7 @@ public class LinearSearch extends SearchAlgorithm {
     }
     
     /**
-     * Helper function for the recursion call.
+     * Helper function for the recursion method.
      *
      * @param words The array of words to search through.
      * @param wordToFind The word to find.
@@ -49,13 +47,15 @@ public class LinearSearch extends SearchAlgorithm {
      * @throws ItemNotFoundException if the word cannot be found
      */
     private int recSearch(String[] words, String wordToFind, int index) throws ItemNotFoundException {
-        if (index == words.length) {
+        // base failure case
+        if (index >= words.length) {
             throw new ItemNotFoundException();
         }
-        if (words[index].equals(wordToFind)) {
+        incrementCount();
+        // base success case
+        if (words[index].equalsIgnoreCase(wordToFind)) {
             return index;
         }
-        incrementCount();
         return recSearch(words, wordToFind, index + 1);
     }
 }

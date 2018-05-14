@@ -30,7 +30,7 @@ class PolyDemo extends JFrame {
     //I can indicate the intent a bit more clearly that this class "goes with" the class above it
     //In general, each class is a separate entity that should be contained in a separate file
     public class PolyDemoPanel extends JPanel {
-        Shape[] myShapes = new Shape[1];
+        Shape[] myShapes = new Shape[20];
         
         public PolyDemoPanel() {
             setBackground(new Color(0xAA_AA_AA));
@@ -77,7 +77,7 @@ class PolyDemo extends JFrame {
             }
             
             //return retVal;
-            return new PokeBall(20, 10, 250);
+            return retVal;
             //return new Polygon(150, 150, 120, getRandInt(0xFFFFFF, 0), getRandInt(7, 3));
             //return new Parallelogram(10, 10, 150, 150, getRandInt(0xFFFFFF, 0));
         }

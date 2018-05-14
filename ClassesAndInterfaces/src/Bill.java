@@ -1,27 +1,46 @@
-import java.io.Serializable;
+// Krish Kalai
+// CSS 143 B
+// PrivacyLeakHomework
 
-public class Bill implements Serializable, Cloneable, Comparable {
+public class Bill implements Comparable<Bill>, Cloneable, java.io.Serializable {
     private Money amount;
     private Date dueDate;
     private Date paidDate;
     private String originator;
-
+    
+    /**
+     * Creates a Bill with the desired amount, due on the dueDate, and due to the originator.
+     *
+     * @param amount Money object of the amount to be paid.
+     * @param dueDate Date object of when the money is due.
+     * @param originator String representation of who to pay to.
+     */
     public Bill(Money amount, Date dueDate, String originator) {
-        this.amount = amount;
-        this.dueDate = dueDate;
-        this.paidDate = null;
-        this.originator = originator;
+        this(amount, dueDate, originator, null);
     }
 
-    public Bill(Bill copy) {
-        this(copy.amount, copy.dueDate, copy.originator);
-        this.dueDate = copy.dueDate;
+    /**
+     * Constructor to do the initial setting.
+     */
+    private Bill(Money amount, Date dueDate, String originator, Date paidDate) {
+        setAmount(amount);
+        setPaid(paidDate);
+        setDueDate(dueDate);
+        setOriginator(originator);
     }
-
+    
     public String getOriginator() {
         return originator;
     }
-
+    
+    public Money getAmount() {
+        return amount.clone();
+    }
+    
+    public Date getDueDate() {
+        return dueDate.clone();
+    }
+    
     public boolean isPaid() {
         return paidDate != null;
     }
@@ -34,11 +53,11 @@ public class Bill implements Serializable, Cloneable, Comparable {
      *         This method returns true if the bill has not been paid and if the paidDate is before or on the dueDate.
      */
     public boolean setPaid(Date paidDate) {
-        if (this.paidDate != null || paidDate != null || paidDate.isAfter(dueDate)) {
-            return false;
+        if (this.paidDate == null && paidDate != null && !paidDate.isAfter(dueDate)) {
+            this.paidDate = paidDate.clone();
+            return true;
         }
-        this.paidDate = paidDate;
-        return true;
+        return false;
     }
 
     /**
@@ -48,11 +67,11 @@ public class Bill implements Serializable, Cloneable, Comparable {
      * @return True if the dueDate is changed. False otherwise.
      */
     public boolean setDueDate(Date dueDate) {
-        if (isPaid() || dueDate == null) {
-            return false;
+        if (!isPaid() && dueDate != null) {
+            this.dueDate = dueDate.clone();
+            return true;
         }
-        this.dueDate = dueDate;
-        return true;
+        return false;
     }
 
     /**
@@ -62,15 +81,17 @@ public class Bill implements Serializable, Cloneable, Comparable {
      * @return True if the change is successful.
      */
     boolean setAmount(Money amount) {
-        if (isPaid() || amount == null) {
-            return false;
+        if (!isPaid() && amount != null) {
+            this.amount = amount.clone();
+            return true;
         }
-        this.amount = amount;
-        return true;
+        return false;
     }
 
     public void setOriginator(String originator) {
-        this.originator = originator;
+        if (originator != null) {
+            this.originator = originator;
+        }
     }
 
     @Override
@@ -87,22 +108,41 @@ public class Bill implements Serializable, Cloneable, Comparable {
      */
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Bill &&
-                this.originator.equals(((Bill)obj).originator) && this.dueDate.equals(((Bill)obj).dueDate) &&
-                this.paidDate.equals(((Bill)obj).paidDate) && this.amount.equals(((Bill)obj).amount);
+        if (obj instanceof Bill) {
+            Bill bill = (Bill)obj;
+            return this.dueDate.equals(bill.dueDate) &&
+                    (this.paidDate == null && bill.paidDate == null) || (this.paidDate != null && this.paidDate.equals(bill.paidDate)) &&
+                    this.amount.equals(bill.amount) &&
+                    this.originator.equals(bill.originator);
+        }
+        return false;
     }
-
+    
+    /**
+     * Returns > 1 if this dueDate is after other's dueDate
+     *
+     * @param other Notnull Bill argument to compare to.
+     * @return integer > 0 if this dueDate is after other's dueDate
+     *         integer < 0 if this dueDate is before other's dueDate
+     *         integer = 0 if this dueDate is due on the same day as other's dueDate.
+     */
     @Override
-    public int compareTo(Object o) {
-        return 0;
+    public int compareTo(Bill other) {
+        return this.dueDate.compareTo(other.dueDate);
     }
-
+    
     @Override
-    public final Bill clone() {
+    public Bill clone() {
         try {
-            return (Bill)super.clone();
+            Bill bill = (Bill) super.clone();
+            bill.amount = this.amount.clone();
+            bill.dueDate = this.dueDate.clone();
+            if (this.paidDate != null) {
+                bill.paidDate = paidDate.clone();
+            }
+            return bill;
         } catch (CloneNotSupportedException x) {
-            return null;
+            throw new InternalError("Clone operation failed", x);
         }
     }
 }
