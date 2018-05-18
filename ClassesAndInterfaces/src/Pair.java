@@ -13,9 +13,9 @@ public class Pair<K extends Comparable<K>, V extends Comparable<V>> implements C
     }
     
     @Override
-    protected Object clone() {
+    public Pair<K, V> clone() {
         try {
-            return super.clone();
+            return (Pair<K, V>) super.clone();
         } catch (CloneNotSupportedException x) {
             throw new InternalError();
         }

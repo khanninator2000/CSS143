@@ -62,9 +62,9 @@ public class Date implements Comparable<Date>, Cloneable, java.io.Serializable {
      * @return Returns true if other is after this.
      */
     public boolean isAfter(Date other) {
-        return this.year > other.year ||
-               this.year == other.year && (this.month > other.month ||
-               this.month == other.month && (this.day > other.day));
+        return this.year < other.year ||
+                this.year == other.year && (this.month < other.month ||
+                        this.month == other.month && (this.day < other.day));
     }
     
     /**
@@ -113,17 +113,12 @@ public class Date implements Comparable<Date>, Cloneable, java.io.Serializable {
      * @return An integer representing the difference of the days.
      *         The value will be < 0 if this is before other.
      *         The value will be = 0 if this is equal to other.
-     *         The value will be > = if this is after other.
+     *         The value will be > 0 if this is after other.
      */
     @Override
     public int compareTo(Date other) {
-        int other_days = other.year * 372;
-        other_days += other.month * 31;
-        other_days += other.day;
-    
-        int this_days = this.year * 372;
-        this_days += this.month * 31;
-        this_days += this.day;
+        int other_days = other.year * 372 + other.month * 31 + other.day;
+        int this_days = this.year * 372 + this.month * 31 + this.day;
         
         return this_days - other_days;
     }

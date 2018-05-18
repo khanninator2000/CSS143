@@ -1,11 +1,14 @@
 // Krish Kalai
 // CSS 143 B
-// PrivacyLeakHomework
+// ClassesAndInterfaces
 
 /**
  * Class to hold Money in USD.
  */
 public class Money implements Comparable<Money>, Cloneable, java.io.Serializable {
+    private final long searialUID = 63L;
+    
+    
     private int dollars;
     private int cents;
 

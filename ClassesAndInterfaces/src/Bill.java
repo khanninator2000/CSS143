@@ -1,6 +1,6 @@
 // Krish Kalai
 // CSS 143 B
-// PrivacyLeakHomework
+// ClassesAndInterfaces
 
 public class Bill implements Comparable<Bill>, Cloneable, java.io.Serializable {
     private Money amount;
@@ -128,9 +128,15 @@ public class Bill implements Comparable<Bill>, Cloneable, java.io.Serializable {
      */
     @Override
     public int compareTo(Bill other) {
-        return this.dueDate.compareTo(other.dueDate);
+        return this.dueDate.compareTo(other.dueDate) == 0 ? this.amount.compareTo(other.amount) :
+                this.dueDate.compareTo(other.dueDate);
     }
     
+    /**
+     * Creates a deep copy clone of the Bill class
+     *
+     * @return a deep copy clone of the Bill class.
+     */
     @Override
     public Bill clone() {
         try {

@@ -1,19 +1,15 @@
 
 public class List {
-    private Node head;
-
-    public List() {
-        this.head = null;
-    }
-
+    private Node head = null;
+    
     /**
      * Inserts an item into the list at the desired position.
      *
      * @param item Object to insert
      * @param index Position to insert to. Will throw LinkedListException if is out of bounds.
-     * @throws LinkedListException If index < 0 or index > size.
+     * @ If index < 0 or index > size.
      */
-    public void insert(Object item, int index) throws LinkedListException {
+    public void insert(Object item, int index) {
         if (index < 0 || index > size()) {
             throw new LinkedListException("Index out of bounds");
         }
@@ -25,12 +21,12 @@ public class List {
         }
 
         //Inserting as head
-        if (index == 0) {
-            Node new_node = new Node(item);
-            new_node.next = head;
-            head = new_node;
-            return;
-        }
+//        if (index == 0) {
+//            Node new_node = new Node(item);
+//            new_node.next = head;
+//            head = new_node;
+//            return;
+//        }
 
         Node n = head;
         for(int i = 0; i < index - 1; i++, n=n.next);
@@ -45,9 +41,9 @@ public class List {
      *
      * @param index
      * @return
-     * @throws LinkedListException
+     * @
      */
-    public Object remove(int index) throws LinkedListException {
+    public Object remove(int index) {
         if (index < 0 || index > size()) {
             throw new LinkedListException("Index out of bounds");
         }
@@ -95,7 +91,7 @@ public class List {
     @Override
     public String toString() {
         String s = "[";
-        for(Node n = head; n != null; s += n.data + " ", n=n.next);
+        for (Node n = head; n != null; s += n.data + (n.next == null ? "" : ", "), n = n.next) ;
         s = s.trim() + "]";
         return s;
     }
@@ -109,10 +105,11 @@ public class List {
             this.next = null;
         }
     }
-
-    public static void main(String[] $) throws LinkedListException {
+    
+    public static void main(String[] $) {
         List list = new List();
-        list.append(0);
+        //list.append(0);
+        list.insert(0, 0);
         for (int i = 1; i < 5; i++) {
             //list.append(i);
             list.insert(i, 1);

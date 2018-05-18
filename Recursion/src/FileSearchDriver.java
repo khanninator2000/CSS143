@@ -9,7 +9,7 @@ public class FileSearchDriver {
     public static void main(String[] $) {
         FindFile f = new FindFile(10);
         try {
-            f.directorySearch("kit.txt", "/Users/krishkalai/Desktop");
+            f.directorySearch("KalaiKrish_ClassesAndInterfaces.zip", "/Users/krishkalai/Desktop");
         } catch (ArrayIndexOutOfBoundsException ignored) {
         
         }

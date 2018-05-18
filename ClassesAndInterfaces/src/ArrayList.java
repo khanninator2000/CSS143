@@ -1,19 +1,27 @@
 // Krish Kalai
 // CSS 143 B
-// FractionsV1
+// ClassesAndInterfaces
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 /**
  * ArrayList-like class to store data in a dynamic resizing list.
  */
 public class ArrayList<T> implements Iterable<T> {
+    /**
+     * Array to store the data
+     */
     protected Object[] elements;
+    
+    /**
+     * Size (number of accessible elements) of the ArrayList.
+     */
     protected int size;
 
     /**
-     * Constructs an ObjectList of 8 elements.
+     * Constructs an ArrayList of 8 elements.
      */
     public ArrayList() {
         elements = new Object[8];
@@ -21,7 +29,8 @@ public class ArrayList<T> implements Iterable<T> {
     }
 
     /**
-     * Add an Object to the next available spot to the array. If no elements are available, then the array will resize.
+     * Add an Object to the next available spot to the array.
+     * If no elements are available, then the array will resize.
      *
      * @param item The item to add to the ObjectList.
      */
@@ -58,12 +67,14 @@ public class ArrayList<T> implements Iterable<T> {
      * @param index The index to delete.
      * @throws IndexOutOfBoundsException If the index parameter is out of range
      */
-    public void delete(int index) {
+    @SuppressWarnings("unchecked")
+    public T remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("" + index);
         }
-
+        T item = (T) elements[index];
         System.arraycopy(elements, index, elements, index + 1, size - index);
+        return item;
     }
 
     /**
@@ -89,7 +100,12 @@ public class ArrayList<T> implements Iterable<T> {
 
         return (T)(elements[index]);
     }
-
+    
+    /**
+     * Gets the size of the ArrayList.
+     *
+     * @return the size of the ArrayList.
+     */
     public int size() {
         return size;
     }
@@ -111,54 +127,42 @@ public class ArrayList<T> implements Iterable<T> {
     }
 
     /**
-     * Creates a new Iterator for when starting the for-each loop.
+     * Creates a new Iterator for when starting a for-each loop
+     * or iteration cycle.
      *
      * @return new ArrayListIterator Object.
      */
     @Override
     @SuppressWarnings("unchecked")
     public Iterator<T> iterator() {
-        return new ArrayListIterator();
+        return new Iterator<T>() {
+            int current_index = 0;
+        
+            @Override
+            public boolean hasNext() {
+                return current_index < size;
+            }
+        
+            @Override
+            public T next() {
+                if (current_index > size) {
+                    throw new NoSuchElementException();
+                }
+                return (T) elements[current_index++];
+            }
+        };
     }
 
     /**
-     * Impl. of what the for each loop should read.
+     * Impl. of what the for each loop should process.
+     *
+     * @param action Consumer lambda to do one operation
      */
     @Override
     @SuppressWarnings("unchecked")
     public void forEach(Consumer<? super T> action) {
         for (int i = 0; i < size; i++) {
             action.accept((T)elements[i]);
-        }
-    }
-
-    /**
-     * Iterator class to iterate through the ArrayList.
-     * The iterator will start from index 0, up to index {@code size}.
-     */
-    protected class ArrayListIterator<I extends T> implements Iterator<I> {
-        private int current_index;
-
-        ArrayListIterator() {
-            this.current_index = 0;
-        }
-        
-        /**
-         * Checks if there is another accessible element in the Array.
-         */
-        @Override
-        public boolean hasNext() {
-            return current_index < size;
-        }
-
-        /**
-         * Returns the next object (as type Object) in the array,
-         * given that {@code Iterator::hasNext} is true.
-         */
-        @Override
-        @SuppressWarnings("unchecked")
-        public I next() {
-            return (I) elements[current_index++];
         }
     }
 }
